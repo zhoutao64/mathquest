@@ -345,6 +345,58 @@ export const CUTSCENES = {
       zh: "Bug仔，要不你量量自己离一个好反派有多远？",
     },
   ],
+
+  // ── Zone 1 Level 6: Factor Factory ───────────────────────
+  zone1_level6_intro: [
+    {
+      speaker: 'narrator',
+      en: "The team enters a vast apple warehouse. Crates are overturned, apples rolling everywhere. A packing machine sparks and sputters.",
+      zh: "团队走进一个巨大的苹果仓库。箱子翻倒了，苹果滚得到处都是。打包机在冒火花。",
+    },
+    {
+      speaker: 'digit', emotion: 'confused',
+      en: "This place is a mess! How do we pack all these apples?",
+      zh: "这里太乱了！我们怎么把这些苹果装好？",
+    },
+    {
+      speaker: 'bug', emotion: 'smug',
+      en: "I scrambled the packing machine! Nobody knows which box sizes work now! Enjoy your leftovers!",
+      zh: "打包机是我搞坏的！现在没人知道该用多大的箱子！慢慢数吧！",
+    },
+    {
+      speaker: 'professor', emotion: 'encouraging',
+      en: "This is about factors! If a box size divides the total perfectly — no leftovers — it's a factor. Let's fix this!",
+      zh: "这就是因数的问题！箱子大小能整除总数——没有剩余——就是因数。来修好它！",
+    },
+    {
+      speaker: 'digit', emotion: 'determined',
+      en: "No leftovers? I like the sound of that. Let's find the right box sizes!",
+      zh: "没有剩余？听起来不错。找出正确的箱子大小！",
+    },
+  ],
+
+  zone1_level6_outro: [
+    {
+      speaker: 'digit', emotion: 'amazed',
+      en: "Factors are numbers that divide perfectly — like finding the right box for every apple!",
+      zh: "因数就是能整除的数——就像给每个苹果找到刚好的箱子！",
+    },
+    {
+      speaker: 'digit', emotion: 'excited',
+      en: "And the GCF is the BIGGEST box that works for different amounts! So useful!",
+      zh: "最大公因数就是能同时装不同数量苹果的最大箱子！太实用了！",
+    },
+    {
+      speaker: 'bug', emotion: 'flustered',
+      en: "H-how did you figure out 18 AND 24?! I made those numbers so confusing!",
+      zh: "你、你怎么连 18 和 24 都算出来了？！我故意挑的难数字！",
+    },
+    {
+      speaker: 'professor', emotion: 'happy',
+      en: "Another memory restored! Factors and GCF — the building blocks of number relationships!",
+      zh: "又找回一段记忆！因数和最大公因数——数字关系的基石！",
+    },
+  ],
 }
 
 // Helper: get cutscene by ID

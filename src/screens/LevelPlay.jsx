@@ -11,6 +11,7 @@ const FractionFrenzy = lazy(() => import('../levels/zone1/FractionFrenzy'))
 const DecimalDash = lazy(() => import('../levels/zone1/DecimalDash'))
 const NegativePlunge = lazy(() => import('../levels/zone1/NegativePlunge'))
 const AbsoluteAdventure = lazy(() => import('../levels/zone1/AbsoluteAdventure'))
+const FactorFactory = lazy(() => import('../levels/zone1/FactorFactory'))
 
 const levelComponents = {
   1: FractionFeast,
@@ -18,6 +19,7 @@ const levelComponents = {
   3: DecimalDash,
   4: NegativePlunge,
   5: AbsoluteAdventure,
+  6: FactorFactory,
 }
 
 function LoadingSpinner() {
