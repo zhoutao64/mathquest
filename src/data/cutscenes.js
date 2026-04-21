@@ -397,6 +397,63 @@ export const CUTSCENES = {
       zh: "又找回一段记忆！因数和最大公因数——数字关系的基石！",
     },
   ],
+
+  // ── Zone 1 Level 7: Multiple Machine ────────────────────────
+  zone1_level7_intro: [
+    {
+      speaker: 'narrator',
+      en: "The team enters a music room deep inside the fortress. Two ancient drum machines sit on a stage, sputtering out random beats.",
+      zh: "团队走进堡垒深处的一间音乐室。舞台上有两台古老的鼓机，正在随机乱敲。",
+    },
+    {
+      speaker: 'digit', emotion: 'confused',
+      en: "These drums used to play together perfectly! Now they're completely out of sync!",
+      zh: "这些鼓以前配合得天衣无缝！现在完全不同步了！",
+    },
+    {
+      speaker: 'bug', emotion: 'smug',
+      en: "I scrambled their timing circuits! They'll NEVER sync up again! Music is ruined forever!",
+      zh: "我搞乱了它们的节拍电路！它们永远不会再同步了！音乐完蛋了！",
+    },
+    {
+      speaker: 'professor', emotion: 'encouraging',
+      en: "Not so fast! If we understand multiples, we can find the pattern. Multiples are what you get when you skip-count — 3, 6, 9, 12...",
+      zh: "别急！如果我们理解倍数，就能找到规律。倍数就是跳着数——3、6、9、12……",
+    },
+    {
+      speaker: 'digit', emotion: 'determined',
+      en: "Skip-counting to fix music? Let me try! I want to hear these drums play together again!",
+      zh: "用跳着数来修音乐？让我试试！我想再听到这些鼓一起演奏！",
+    },
+  ],
+
+  zone1_level7_outro: [
+    {
+      speaker: 'digit', emotion: 'amazed',
+      en: "Multiples are just skip-counting! 3, 6, 9, 12... every third beat lights up!",
+      zh: "倍数就是跳着数！3、6、9、12……每隔三拍亮一次！",
+    },
+    {
+      speaker: 'digit', emotion: 'excited',
+      en: "And the LCM is the first moment two rhythms meet! Like beat 12 for drums of 3 and 4!",
+      zh: "最小公倍数就是两个节奏第一次相遇的那一拍！比如 3 和 4 的鼓在第 12 拍同步！",
+    },
+    {
+      speaker: 'bug', emotion: 'panicked',
+      en: "The music is back?! I HATE synchronized beats! It sounds too... too beautiful!",
+      zh: "音乐回来了？！我最讨厌同步的节拍了！听起来太……太好听了！",
+    },
+    {
+      speaker: 'professor', emotion: 'happy',
+      en: "Wonderful! Multiples and LCM — the rhythm of numbers! Another piece of your memory, Digit!",
+      zh: "太棒了！倍数和最小公倍数——数字的节奏！又找回一段记忆，Digit！",
+    },
+    {
+      speaker: 'digit', emotion: 'sassy',
+      en: "Hey Bug, your timing for ruining things? Also a multiple of FAIL!",
+      zh: "嘿Bug仔，你搞破坏的时机呢？也是失败的倍数！",
+    },
+  ],
 }
 
 // Helper: get cutscene by ID
