@@ -288,6 +288,63 @@ export const CUTSCENES = {
       zh: "很明显，我不是一般人。",
     },
   ],
+
+  // ── Zone 1 Level 5: Absolute Adventure ─────────────────────
+  zone1_level5_intro: [
+    {
+      speaker: 'narrator',
+      en: "The team reaches a crossroads. A weathered signpost reads: HOME = 0. Paths stretch in both directions as far as the eye can see.",
+      zh: "团队来到一个十字路口。一块风化的路标写着：HOME = 0。道路向两个方向无限延伸。",
+    },
+    {
+      speaker: 'digit', emotion: 'confused',
+      en: "HOME = 0? So this spot is 'home'... and numbers spread out in both directions?",
+      zh: "HOME = 0？所以这个地方就是「家」……数字向两边展开？",
+    },
+    {
+      speaker: 'bug', emotion: 'smug',
+      en: "Ha! -3 is obviously closer than 4 — it's a smaller number! Negative means less, duh!",
+      zh: "哈！-3 明显比 4 近——它是更小的数字嘛！负数就是更少，这还用说？",
+    },
+    {
+      speaker: 'professor', emotion: 'encouraging',
+      en: "Hmm, is that really true? Let's measure the actual distances and find out. The distance from home is called the absolute value!",
+      zh: "嗯，真的是这样吗？让我们量一量实际距离。从家出发的距离叫做绝对值！",
+    },
+    {
+      speaker: 'digit', emotion: 'determined',
+      en: "I'll walk the path and count my steps. Distance can't lie!",
+      zh: "我走过去数步数就知道了。距离不会骗人的！",
+    },
+  ],
+
+  zone1_level5_outro: [
+    {
+      speaker: 'digit', emotion: 'amazed',
+      en: "Distance from home doesn't care about direction — only steps count! |-5| = 5 because it's 5 steps away!",
+      zh: "离家的距离不管方向——只看步数！|-5| = 5 因为走了5步！",
+    },
+    {
+      speaker: 'digit', emotion: 'excited',
+      en: "And |5| = 5 too! Both 5 and -5 are the same distance from home — just in opposite directions!",
+      zh: "而且 |5| 也等于 5！5 和 -5 离家一样远——只是方向相反！",
+    },
+    {
+      speaker: 'bug', emotion: 'flustered',
+      en: "But... but negative means less! My whole argument falls apart!",
+      zh: "但是……但是负数就是更少啊！我的论点全崩了！",
+    },
+    {
+      speaker: 'professor', emotion: 'happy',
+      en: "Absolute value strips away direction and gives pure distance. A powerful concept!",
+      zh: "绝对值去掉方向，给出纯粹的距离。这是一个强大的概念！",
+    },
+    {
+      speaker: 'digit', emotion: 'sassy',
+      en: "Bug, maybe you should measure how far YOU are from being a good villain!",
+      zh: "Bug仔，要不你量量自己离一个好反派有多远？",
+    },
+  ],
 }
 
 // Helper: get cutscene by ID
