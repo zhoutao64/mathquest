@@ -44,6 +44,11 @@ const useGameStore = create(
         if (!cards.includes(cardId)) set({ knowledgeCards: [...cards, cardId] })
       },
 
+      // Check if zone is completed (boss defeated)
+      isZoneCompleted: (zoneId) => {
+        return get().zones[zoneId]?.bossDefeated || false
+      },
+
       // Unlocked zones (zone1 always unlocked, others need previous boss defeated)
       isZoneUnlocked: (zoneId) => {
         const zoneOrder = ['zone1', 'zone2', 'zone3', 'zone4', 'zone5', 'zone6']
@@ -75,8 +80,20 @@ const useGameStore = create(
         return total
       },
 
+      // Cutscene tracking
+      viewedCutscenes: [],
+      markCutsceneSeen: (cutsceneId) => {
+        const viewed = get().viewedCutscenes
+        if (!viewed.includes(cutsceneId)) {
+          set({ viewedCutscenes: [...viewed, cutsceneId] })
+        }
+      },
+      hasCutsceneSeen: (cutsceneId) => {
+        return get().viewedCutscenes.includes(cutsceneId)
+      },
+
       // Reset
-      reset: () => set({ character: null, xp: 0, level: 1, zones: {}, knowledgeCards: [] }),
+      reset: () => set({ character: null, xp: 0, level: 1, zones: {}, knowledgeCards: [], viewedCutscenes: [] }),
     }),
     { name: 'mathquest-progress' }
   )

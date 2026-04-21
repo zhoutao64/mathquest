@@ -1,8 +1,71 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { ZONE1_LEVELS } from '../levels/zone1'
-import StarRating from '../components/StarRating'
+import { ProfessorPiAvatar } from '../components/characters'
+
+// Animated SVG star with expression
+function CelebrationStar({ filled, delay = 0, size = 52 }) {
+  const s = size / 52
+  return (
+    <div style={{
+      animation: filled ? `star-pop 0.5s ease ${delay}s both` : 'none',
+      display: 'inline-block',
+    }}>
+      <svg width={size} height={size} viewBox={`0 0 ${52*s} ${52*s}`}>
+        <polygon
+          points={`${26*s},${4*s} ${31*s},${18*s} ${46*s},${19*s} ${35*s},${28*s} ${38*s},${43*s} ${26*s},${35*s} ${14*s},${43*s} ${17*s},${28*s} ${6*s},${19*s} ${21*s},${18*s}`}
+          fill={filled ? '#FFE66D' : '#E2E8F0'}
+          stroke={filled ? '#F59E0B' : '#CBD5E1'}
+          strokeWidth={1.5*s}
+        />
+        {/* Face on filled star */}
+        {filled && (
+          <>
+            <circle cx={22*s} cy={22*s} r={1.5*s} fill="#D97706" />
+            <circle cx={30*s} cy={22*s} r={1.5*s} fill="#D97706" />
+            <path d={`M ${22*s} ${27*s} Q ${26*s} ${31*s} ${30*s} ${27*s}`} fill="none" stroke="#D97706" strokeWidth={1.2*s} strokeLinecap="round" />
+          </>
+        )}
+      </svg>
+    </div>
+  )
+}
+
+// Confetti pieces
+function Confetti({ count = 20 }) {
+  const pieces = useMemo(() =>
+    Array.from({ length: count }, (_, i) => ({
+      left: `${Math.random() * 100}%`,
+      delay: `${Math.random() * 2}s`,
+      duration: `${2 + Math.random() * 2}s`,
+      color: ['#4ECDC4', '#A78BFA', '#F472B6', '#FFE66D', '#60A5FA', '#FF6B6B'][i % 6],
+      size: 6 + Math.random() * 6,
+    })),
+    [count]
+  )
+
+  return (
+    <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', pointerEvents: 'none', zIndex: 0 }}>
+      {pieces.map((p, i) => (
+        <div
+          key={i}
+          style={{
+            position: 'absolute',
+            left: p.left,
+            top: -10,
+            width: p.size,
+            height: p.size,
+            borderRadius: i % 3 === 0 ? '50%' : i % 3 === 1 ? 2 : 0,
+            background: p.color,
+            animation: `confetti-fall ${p.duration} ease ${p.delay} both`,
+            transform: `rotate(${Math.random() * 360}deg)`,
+          }}
+        />
+      ))}
+    </div>
+  )
+}
 
 export default function LevelResult() {
   const { zoneId, levelId } = useParams()
@@ -20,6 +83,8 @@ export default function LevelResult() {
 
   const nextLevelId = numericLevelId + 1
   const hasNextLevel = ZONE1_LEVELS.some((l) => l.id === nextLevelId)
+
+  const professorEmotion = stars >= 3 ? 'proud' : stars >= 2 ? 'encouraging' : 'happy'
 
   // Animated XP counter
   const [displayXP, setDisplayXP] = useState(0)
@@ -53,11 +118,27 @@ export default function LevelResult() {
         justifyContent: 'center',
         padding: 20,
         textAlign: 'center',
+        position: 'relative',
+        overflow: 'hidden',
       }}
     >
+      {/* Confetti */}
+      {stars >= 2 && <Confetti count={stars >= 3 ? 30 : 15} />}
+
+      {/* Professor Pi celebrating */}
+      <div style={{
+        animation: 'bounce-in 0.6s ease forwards',
+        marginBottom: 12,
+        position: 'relative',
+        zIndex: 1,
+      }}>
+        <div style={{ animation: stars >= 3 ? 'wiggle 1s ease-in-out infinite' : 'none' }}>
+          <ProfessorPiAvatar size={80} emotion={professorEmotion} />
+        </div>
+      </div>
+
       {/* Title */}
-      <div style={{ animation: 'bounce-in 0.6s ease forwards' }}>
-        <div style={{ fontSize: 56, marginBottom: 8 }}>{'\uD83C\uDF89'}</div>
+      <div style={{ animation: 'bounce-in 0.6s ease 0.1s both', position: 'relative', zIndex: 1 }}>
         <h1
           style={{
             fontSize: 'clamp(1.8rem, 6vw, 2.5rem)',
@@ -66,35 +147,42 @@ export default function LevelResult() {
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text',
-            marginBottom: 24,
+            marginBottom: 20,
           }}
         >
           {t('result.title')}
         </h1>
       </div>
 
-      {/* Stars */}
+      {/* Stars with faces */}
       <div
         style={{
+          display: 'flex',
+          gap: 8,
           marginBottom: 28,
-          animation: 'bounce-in 0.6s ease 0.2s both',
+          position: 'relative',
+          zIndex: 1,
         }}
       >
-        <StarRating stars={stars} size={48} />
+        {[1, 2, 3].map(i => (
+          <CelebrationStar key={i} filled={i <= stars} delay={0.3 + i * 0.2} size={52} />
+        ))}
       </div>
 
       {/* XP display */}
       <div
         style={{
-          background: 'rgba(255,255,255,0.85)',
-          borderRadius: 16,
-          padding: '20px 32px',
+          background: 'rgba(255,255,255,0.9)',
+          borderRadius: 24,
+          padding: '20px 36px',
           marginBottom: 20,
           backdropFilter: 'blur(8px)',
-          border: '1px solid rgba(0,0,0,0.06)',
-          boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
-          animation: 'bounce-in 0.6s ease 0.3s both',
+          border: '2px solid rgba(78, 205, 196, 0.2)',
+          boxShadow: '0 4px 24px rgba(78, 205, 196, 0.15)',
+          animation: 'bounce-in 0.6s ease 0.4s both',
           minWidth: 200,
+          position: 'relative',
+          zIndex: 1,
         }}
       >
         <p
@@ -123,15 +211,16 @@ export default function LevelResult() {
       {hasCard && (
         <div
           style={{
-            background: 'linear-gradient(135deg, rgba(167,139,250,0.15), rgba(244,114,182,0.15))',
-            border: '2px solid #A78BFA',
-            borderRadius: 14,
+            background: 'linear-gradient(135deg, rgba(167,139,250,0.12), rgba(244,114,182,0.12))',
+            border: '2px solid #C4B5FD',
+            borderRadius: 20,
             padding: '14px 24px',
             marginBottom: 24,
-            animation: 'bounce-in 0.6s ease 0.5s both',
+            animation: 'bounce-in 0.6s ease 0.6s both',
+            position: 'relative',
+            zIndex: 1,
           }}
         >
-          <span style={{ fontSize: 22, marginRight: 8 }}>{'\uD83C\uDCCF'}</span>
           <span
             style={{
               fontWeight: 700,
@@ -151,13 +240,15 @@ export default function LevelResult() {
           gap: 12,
           flexWrap: 'wrap',
           justifyContent: 'center',
-          animation: 'bounce-in 0.6s ease 0.6s both',
+          animation: 'bounce-in 0.6s ease 0.7s both',
+          position: 'relative',
+          zIndex: 1,
         }}
       >
         <button
           className="btn btn-purple"
           onClick={() => navigate(`/zone/${zoneId}`)}
-          style={{ padding: '12px 28px' }}
+          style={{ padding: '14px 28px', borderRadius: 20 }}
         >
           {t('result.backToMap')}
         </button>
@@ -166,7 +257,7 @@ export default function LevelResult() {
           <button
             className="btn btn-primary"
             onClick={() => navigate(`/zone/${zoneId}/level/${nextLevelId}`)}
-            style={{ padding: '12px 28px' }}
+            style={{ padding: '14px 28px', borderRadius: 20 }}
           >
             {t('result.nextLevel')} {'\u2192'}
           </button>

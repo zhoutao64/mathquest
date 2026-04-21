@@ -5,27 +5,27 @@ import ProfessorPi from '../../components/ProfessorPi'
 // ─── Task Data: Matching Pairs ───────────────────────────────
 const ROUNDS = [
   {
-    // Round 1: Find equivalent fractions
-    instruction: { en: 'Find two fractions that are equal!', zh: '找出两个相等的分数！' },
+    // Round 1: Find equivalent fractions (all 4 cards pair up)
+    instruction: { en: 'Match the equivalent fractions!', zh: '找出所有等价的分数配对！' },
     cards: [
       { id: 'a1', num: 1, den: 2, label: '1/2' },
       { id: 'a2', num: 2, den: 4, label: '2/4' },
       { id: 'b1', num: 1, den: 3, label: '1/3' },
-      { id: 'b2', num: 3, den: 4, label: '3/4' },
+      { id: 'b2', num: 2, den: 6, label: '2/6' },
     ],
-    matches: [['a1', 'a2']],
-    explanation: { en: '1/2 = 2/4 because both are exactly half!', zh: '1/2 = 2/4，因为它们都恰好是一半！' },
+    matches: [['a1', 'a2'], ['b1', 'b2']],
+    explanation: { en: '1/2 = 2/4 and 1/3 = 2/6. Multiply top and bottom by 2!', zh: '1/2 = 2/4 且 1/3 = 2/6。分子分母同时乘以2！' },
   },
   {
-    instruction: { en: 'Find the pair that adds up to 1!', zh: '找出加起来等于 1 的一对！' },
+    instruction: { en: 'Which pairs add up to 1?', zh: '哪些配对加起来等于1？' },
     cards: [
       { id: 'a1', num: 1, den: 4, label: '1/4' },
       { id: 'a2', num: 3, den: 4, label: '3/4' },
       { id: 'b1', num: 1, den: 3, label: '1/3' },
-      { id: 'b2', num: 1, den: 2, label: '1/2' },
+      { id: 'b2', num: 2, den: 3, label: '2/3' },
     ],
-    matches: [['a1', 'a2']],
-    explanation: { en: '1/4 + 3/4 = 4/4 = 1 whole!', zh: '1/4 + 3/4 = 4/4 = 1 整块！' },
+    matches: [['a1', 'a2'], ['b1', 'b2']],
+    explanation: { en: '1/4 + 3/4 = 1 and 1/3 + 2/3 = 1!', zh: '1/4 + 3/4 = 1 且 1/3 + 2/3 = 1！' },
   },
   {
     instruction: { en: 'Find ALL equivalent pairs!', zh: '找出所有等价的配对！' },
@@ -91,22 +91,22 @@ function FractionPie({ num, den, size = 60 }) {
 }
 
 // ─── Card Component ──────────────────────────────────────────
-function FractionCard({ card, isSelected, isMatched, isWrong, onClick }) {
+function FractionCard({ card, isSelected, isMatched, isWrong, isDimmed, onClick }) {
   const borderColor = isMatched ? '#4ECDC4' : isSelected ? '#FFE66D' : isWrong ? '#FF6B6B' : 'rgba(0,0,0,0.08)'
   const bg = isMatched ? '#E0FFF8' : isWrong ? '#FFF0F0' : '#fff'
   const scale = isSelected ? 1.05 : isMatched ? 0.95 : 1
 
   return (
     <div
-      onClick={() => !isMatched && onClick(card.id)}
+      onClick={() => !isMatched && !isDimmed && onClick(card.id)}
       style={{
         background: bg,
         border: `3px solid ${borderColor}`,
         borderRadius: 16, padding: 12,
-        cursor: isMatched ? 'default' : 'pointer',
-        transition: 'all 0.2s',
-        transform: `scale(${scale})`,
-        opacity: isMatched ? 0.6 : 1,
+        cursor: isMatched || isDimmed ? 'default' : 'pointer',
+        transition: 'all 0.3s',
+        transform: `scale(${isDimmed ? 0.9 : scale})`,
+        opacity: isDimmed ? 0.25 : isMatched ? 0.6 : 1,
         display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8,
         minWidth: 80,
         boxShadow: isSelected ? '0 4px 16px rgba(255,230,109,0.4)' : '0 2px 8px rgba(0,0,0,0.06)',
@@ -228,6 +228,12 @@ export default function FractionFrenzy({ levelData, onComplete }) {
         <div style={{ fontSize: 'clamp(0.95rem, 3vw, 1.1rem)', fontWeight: 600, color: '#1E293B' }}>
           {round.instruction[lang]}
         </div>
+        <div style={{ fontSize: 13, color: '#94A3B8', marginTop: 6 }}>
+          {lang === 'zh'
+            ? `找 ${totalMatches} 组配对 · 已找到 ${matchedCards.length / 2}/${totalMatches}`
+            : `Find ${totalMatches} pair${totalMatches > 1 ? 's' : ''} · Found ${matchedCards.length / 2}/${totalMatches}`
+          }
+        </div>
       </div>
 
       {/* Cards grid */}
@@ -235,16 +241,21 @@ export default function FractionFrenzy({ levelData, onComplete }) {
         display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)',
         gap: 12, maxWidth: 320, width: '100%',
       }}>
-        {round.cards.map(card => (
-          <FractionCard
-            key={card.id}
-            card={card}
-            isSelected={selectedCards.includes(card.id)}
-            isMatched={matchedCards.includes(card.id)}
-            isWrong={wrongCards.includes(card.id)}
-            onClick={handleCardClick}
-          />
-        ))}
+        {round.cards.map(card => {
+          const isMatched = matchedCards.includes(card.id)
+          const isDimmed = allMatchesFound && !isMatched
+          return (
+            <FractionCard
+              key={card.id}
+              card={card}
+              isSelected={selectedCards.includes(card.id)}
+              isMatched={isMatched}
+              isWrong={wrongCards.includes(card.id)}
+              isDimmed={isDimmed}
+              onClick={handleCardClick}
+            />
+          )
+        })}
       </div>
 
       {/* Explanation after all matches */}

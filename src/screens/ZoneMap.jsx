@@ -1,13 +1,117 @@
+import { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import useGameStore from '../store/useGameStore'
 import { ZONE1_LEVELS, ZONE1_INFO } from '../levels/zone1'
 import StarRating from '../components/StarRating'
+import DialogueBox from '../components/DialogueBox'
+import { getCutscene } from '../data/cutscenes'
+import { DigitAvatar } from '../components/characters'
+import SettingsPanel, { SettingsGearButton } from '../components/SettingsPanel'
 
-const levelIcons = [
-  '\uD83C\uDF70', '\uD83C\uDF6C', '\uD83C\uDFC3', '\uD83E\uDD3F', '\uD83D\uDCCF',
-  '\uD83C\uDFED', '\uD83E\uDD41', '\uD83D\uDDFC', '\uD83C\uDF3B', '\uD83D\uDD2D',
-]
+// SVG lock icon
+function LockIcon({ size = 18 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+      <rect x={5} y={11} width={14} height={10} rx={2} fill="#CBD5E1" />
+      <path d="M8 11V7a4 4 0 018 0v4" fill="none" stroke="#CBD5E1" strokeWidth={2} strokeLinecap="round" />
+    </svg>
+  )
+}
+
+// Level node — cartoon circle button
+function LevelNode({ index, level, stars, unlocked, completed, onClick }) {
+  const colors = ['#4ECDC4', '#60A5FA', '#A78BFA', '#F472B6', '#FFE66D', '#FF6B6B', '#34D399', '#F59E0B', '#818CF8', '#EC4899']
+  const color = colors[index % colors.length]
+
+  return (
+    <div
+      onClick={() => unlocked && onClick()}
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: 14,
+        padding: '12px 16px',
+        background: unlocked ? 'rgba(255,255,255,0.9)' : 'rgba(200,200,200,0.3)',
+        border: completed ? `2px solid ${color}` : '1px solid rgba(0,0,0,0.06)',
+        borderRadius: 20,
+        cursor: unlocked ? 'pointer' : 'default',
+        transition: 'transform 0.15s ease, box-shadow 0.15s ease',
+        boxShadow: completed ? `0 2px 16px ${color}25` : '0 2px 10px rgba(0,0,0,0.05)',
+        opacity: unlocked ? 1 : 0.5,
+      }}
+      onMouseEnter={(e) => { if (unlocked) e.currentTarget.style.transform = 'translateX(4px)' }}
+      onMouseLeave={(e) => { if (unlocked) e.currentTarget.style.transform = 'translateX(0)' }}
+    >
+      {/* Level number circle */}
+      <div style={{
+        width: 48,
+        height: 48,
+        borderRadius: '50%',
+        background: unlocked
+          ? `linear-gradient(135deg, ${color}, ${color}CC)`
+          : '#CBD5E1',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexShrink: 0,
+        boxShadow: unlocked ? `0 3px 10px ${color}40` : 'none',
+        position: 'relative',
+      }}>
+        {unlocked ? (
+          <span style={{ fontSize: 18, fontWeight: 800, color: 'white' }}>
+            {index + 1}
+          </span>
+        ) : (
+          <LockIcon size={20} />
+        )}
+        {/* Completed checkmark */}
+        {completed && (
+          <div style={{
+            position: 'absolute',
+            bottom: -2,
+            right: -2,
+            width: 18,
+            height: 18,
+            borderRadius: '50%',
+            background: '#4ECDC4',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            border: '2px solid white',
+          }}>
+            <svg width={10} height={10} viewBox="0 0 24 24" fill="none">
+              <path d="M5 13l4 4L19 7" stroke="white" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </div>
+        )}
+      </div>
+
+      {/* Level info */}
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <span style={{
+          fontSize: '1rem',
+          fontWeight: 700,
+          color: unlocked ? '#1E293B' : '#94A3B8',
+          display: 'block',
+        }}>
+          {level.nameKey}
+        </span>
+        <span style={{
+          fontSize: '0.8rem',
+          color: '#94A3B8',
+        }}>
+          {level.topicKey}
+        </span>
+      </div>
+
+      {/* Stars */}
+      <div style={{ flexShrink: 0 }}>
+        {unlocked && <StarRating stars={stars} size={16} />}
+      </div>
+    </div>
+  )
+}
 
 export default function ZoneMap() {
   const { zoneId } = useParams()
@@ -15,16 +119,30 @@ export default function ZoneMap() {
   const { t } = useTranslation()
   const getLevelStars = useGameStore((s) => s.getLevelStars)
   const isLevelUnlocked = useGameStore((s) => s.isLevelUnlocked)
+  const hasCutsceneSeen = useGameStore((s) => s.hasCutsceneSeen)
+  const markCutsceneSeen = useGameStore((s) => s.markCutsceneSeen)
 
-  // For now only zone1 is implemented
   const levels = ZONE1_LEVELS
   const zoneInfo = ZONE1_INFO
+
+  // Zone intro cutscene
+  const zoneIntroId = `${zoneId}_intro`
+  const zoneIntroScenes = getCutscene(zoneIntroId)
+  const [showZoneIntro, setShowZoneIntro] = useState(
+    zoneIntroScenes && !hasCutsceneSeen(zoneIntroId)
+  )
 
   const completedCount = levels.filter(
     (lvl) => getLevelStars(zoneId, lvl.id) > 0
   ).length
 
   const allLevelsComplete = completedCount >= 10
+  const [showSettings, setShowSettings] = useState(false)
+
+  const handleZoneIntroComplete = () => {
+    markCutsceneSeen(zoneIntroId)
+    setShowZoneIntro(false)
+  }
 
   return (
     <div
@@ -33,15 +151,25 @@ export default function ZoneMap() {
         padding: '20px 16px',
         maxWidth: 560,
         margin: '0 auto',
+        position: 'relative',
       }}
     >
+      {/* Settings */}
+      {showSettings && <SettingsPanel onClose={() => setShowSettings(false)} showExit />}
+      <SettingsGearButton onClick={() => setShowSettings(true)} />
+
+      {/* Zone intro cutscene */}
+      {showZoneIntro && zoneIntroScenes && (
+        <DialogueBox scenes={zoneIntroScenes} onComplete={handleZoneIntroComplete} />
+      )}
+
       {/* Back button */}
       <button
         onClick={() => navigate('/map')}
         style={{
           background: 'rgba(255,255,255,0.7)',
           border: '1px solid rgba(0,0,0,0.06)',
-          borderRadius: 10,
+          borderRadius: 12,
           padding: '8px 16px',
           cursor: 'pointer',
           fontSize: '0.9rem',
@@ -61,7 +189,10 @@ export default function ZoneMap() {
           style={{
             fontSize: 'clamp(1.6rem, 5vw, 2rem)',
             fontWeight: 800,
-            color: '#1E293B',
+            background: 'linear-gradient(135deg, #4ECDC4, #60A5FA)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
             marginBottom: 4,
           }}
         >
@@ -72,113 +203,37 @@ export default function ZoneMap() {
         </p>
       </div>
 
-      {/* Level list */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+      {/* Level list with connecting path */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8, position: 'relative' }}>
+        {/* Connecting dotted line */}
+        <div style={{
+          position: 'absolute',
+          left: 39,
+          top: 36,
+          bottom: 80,
+          width: 2,
+          background: 'repeating-linear-gradient(to bottom, #CBD5E1 0, #CBD5E1 4px, transparent 4px, transparent 10px)',
+          zIndex: 0,
+        }} />
+
         {levels.map((level, index) => {
           const stars = getLevelStars(zoneId, level.id)
           const unlocked = isLevelUnlocked(zoneId, level.id)
           const completed = stars > 0
 
           return (
-            <div
-              key={level.id}
-              onClick={() =>
-                unlocked && navigate(`/zone/${zoneId}/level/${level.id}`)
-              }
-              style={{
-                background: unlocked
-                  ? 'rgba(255,255,255,0.85)'
-                  : 'rgba(200,200,200,0.35)',
-                border: completed
-                  ? '2px solid #4ECDC4'
-                  : '1px solid rgba(0,0,0,0.06)',
-                borderRadius: 14,
-                padding: '16px 18px',
-                cursor: unlocked ? 'pointer' : 'default',
-                transition: 'transform 0.15s ease, box-shadow 0.15s ease',
-                boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
-                backdropFilter: 'blur(8px)',
-                opacity: unlocked ? 1 : 0.5,
-                display: 'flex',
-                alignItems: 'center',
-                gap: 14,
-              }}
-              onMouseEnter={(e) => {
-                if (unlocked) e.currentTarget.style.transform = 'translateX(4px)'
-              }}
-              onMouseLeave={(e) => {
-                if (unlocked) e.currentTarget.style.transform = 'translateX(0)'
-              }}
-            >
-              {/* Level number + icon */}
-              <div
-                style={{
-                  width: 48,
-                  height: 48,
-                  borderRadius: 12,
-                  background: unlocked
-                    ? 'linear-gradient(135deg, #4ECDC4, #60A5FA)'
-                    : '#CBD5E1',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: 22,
-                  flexShrink: 0,
+            <div key={level.id} style={{ position: 'relative', zIndex: 1 }}>
+              <LevelNode
+                index={index}
+                level={{
+                  nameKey: t(`zone1Levels.level${level.id}.name`),
+                  topicKey: t(`zone1Levels.level${level.id}.topic`),
                 }}
-              >
-                {unlocked ? levelIcons[index] || '\uD83D\uDCDD' : '\uD83D\uDD12'}
-              </div>
-
-              {/* Level info */}
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 8,
-                    marginBottom: 2,
-                  }}
-                >
-                  <span
-                    style={{
-                      fontSize: '0.75rem',
-                      fontWeight: 700,
-                      color: '#64748B',
-                    }}
-                  >
-                    {index + 1}
-                  </span>
-                  <span
-                    style={{
-                      fontSize: '1rem',
-                      fontWeight: 700,
-                      color: unlocked ? '#1E293B' : '#94A3B8',
-                    }}
-                  >
-                    {t(`zone1Levels.level${level.id}.name`)}
-                  </span>
-                </div>
-                <p
-                  style={{
-                    fontSize: '0.8rem',
-                    color: '#94A3B8',
-                    margin: 0,
-                  }}
-                >
-                  {t(`zone1Levels.level${level.id}.topic`)}
-                </p>
-              </div>
-
-              {/* Stars */}
-              <div style={{ flexShrink: 0 }}>
-                {unlocked ? (
-                  <StarRating stars={stars} size={18} />
-                ) : (
-                  <span style={{ fontSize: 14, color: '#94A3B8' }}>
-                    {'\uD83D\uDD12'}
-                  </span>
-                )}
-              </div>
+                stars={stars}
+                unlocked={unlocked}
+                completed={completed}
+                onClick={() => navigate(`/zone/${zoneId}/level/${level.id}`)}
+              />
             </div>
           )
         })}
@@ -187,16 +242,18 @@ export default function ZoneMap() {
         <div
           style={{
             background: allLevelsComplete
-              ? 'linear-gradient(135deg, rgba(255,107,107,0.15), rgba(167,139,250,0.15))'
-              : 'rgba(200,200,200,0.3)',
+              ? 'linear-gradient(135deg, rgba(255,107,107,0.12), rgba(167,139,250,0.12))'
+              : 'rgba(200,200,200,0.25)',
             border: allLevelsComplete
               ? '2px solid #FF6B6B'
               : '1px dashed rgba(0,0,0,0.12)',
-            borderRadius: 14,
+            borderRadius: 20,
             padding: '18px 20px',
             textAlign: 'center',
             marginTop: 8,
             opacity: allLevelsComplete ? 1 : 0.5,
+            position: 'relative',
+            zIndex: 1,
           }}
         >
           <div style={{ fontSize: 36, marginBottom: 4 }}>{'\uD83D\uDC09'}</div>
@@ -213,9 +270,24 @@ export default function ZoneMap() {
           <p style={{ fontSize: '0.8rem', color: '#94A3B8', margin: 0 }}>
             {allLevelsComplete
               ? t('common.play')
-              : `\uD83D\uDD12 ${t('common.locked')}`}
+              : (
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+                  <LockIcon size={14} /> {t('common.locked')}
+                </span>
+              )}
           </p>
         </div>
+      </div>
+
+      {/* Digit companion at bottom */}
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        marginTop: 24,
+        opacity: 0.7,
+        animation: 'float 3s ease-in-out infinite',
+      }}>
+        <DigitAvatar size={40} emotion="determined" />
       </div>
     </div>
   )
