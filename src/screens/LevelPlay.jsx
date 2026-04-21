@@ -13,6 +13,7 @@ const NegativePlunge = lazy(() => import('../levels/zone1/NegativePlunge'))
 const AbsoluteAdventure = lazy(() => import('../levels/zone1/AbsoluteAdventure'))
 const FactorFactory = lazy(() => import('../levels/zone1/FactorFactory'))
 const MultipleMachine = lazy(() => import('../levels/zone1/MultipleMachine'))
+const PowerTower = lazy(() => import('../levels/zone1/PowerTower'))
 
 const levelComponents = {
   1: FractionFeast,
@@ -22,6 +23,7 @@ const levelComponents = {
   5: AbsoluteAdventure,
   6: FactorFactory,
   7: MultipleMachine,
+  8: PowerTower,
 }
 
 function LoadingSpinner() {

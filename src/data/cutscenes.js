@@ -454,6 +454,63 @@ export const CUTSCENES = {
       zh: "嘿Bug仔，你搞破坏的时机呢？也是失败的倍数！",
     },
   ],
+
+  // ── Zone 1 Level 8: Power Tower ─────────────────────────────
+  zone1_level8_intro: [
+    {
+      speaker: 'narrator',
+      en: "Deep inside the fortress, the team discovers a hidden laboratory. A petri dish on the counter is glowing — something inside is growing... fast.",
+      zh: "在堡垒深处，团队发现了一间隐藏的实验室。台面上的培养皿在发光——里面的东西在飞速生长……",
+    },
+    {
+      speaker: 'digit', emotion: 'confused',
+      en: "That one little cell just... split into two?! And now there's four?! It won't stop!",
+      zh: "那个小细胞刚才……分裂成两个了？！现在又变成四个了？！它停不下来！",
+    },
+    {
+      speaker: 'bug', emotion: 'smug',
+      en: "I broke the growth limiter! These cells will multiply forever! Soon they'll fill the whole fortress!",
+      zh: "我搞坏了增长限制器！这些细胞会一直繁殖！很快它们就会填满整个堡垒！",
+    },
+    {
+      speaker: 'professor', emotion: 'encouraging',
+      en: "Don't panic! This is about exponents — repeated multiplication. If we understand the pattern, we can predict and control the growth!",
+      zh: "别慌！这是关于指数的——重复乘法。如果我们理解规律，就能预测和控制增长！",
+    },
+    {
+      speaker: 'digit', emotion: 'determined',
+      en: "Repeated multiplication? So 2 times 2 times 2... Let me figure this out!",
+      zh: "重复乘法？也就是 2 乘 2 乘 2……让我来搞清楚！",
+    },
+  ],
+
+  zone1_level8_outro: [
+    {
+      speaker: 'digit', emotion: 'amazed',
+      en: "Exponents are just repeated multiplication! 2\u00B3 means 2\u00D72\u00D72 = 8. So simple but SO powerful!",
+      zh: "指数就是重复乘法！2\u00B3 就是 2\u00D72\u00D72 = 8。这么简单但威力巨大！",
+    },
+    {
+      speaker: 'digit', emotion: 'excited',
+      en: "And 10\u00B3 = 1000! Powers of 10 are just adding zeros! The growth is mind-blowing!",
+      zh: "而且 10\u00B3 = 1000！10 的指数就是加零！增长速度太惊人了！",
+    },
+    {
+      speaker: 'bug', emotion: 'panicked',
+      en: "Wait, you CONTROLLED the growth?! That was supposed to cause chaos, not a science lesson!",
+      zh: "等等，你控制住增长了？！那本来应该制造混乱的，不是上科学课！",
+    },
+    {
+      speaker: 'professor', emotion: 'happy',
+      en: "Exponents — the power of repeated multiplication! Another crucial memory restored, Digit!",
+      zh: "指数——重复乘法的力量！又恢复了一段关键记忆，Digit！",
+    },
+    {
+      speaker: 'digit', emotion: 'sassy',
+      en: "Bug, your failures are growing exponentially too. 2\u00B9 fail, 2\u00B2 fails, 2\u00B3 fails...",
+      zh: "Bug仔，你的失败也在指数增长呢。2\u00B9 次失败，2\u00B2 次失败，2\u00B3 次失败……",
+    },
+  ],
 }
 
 // Helper: get cutscene by ID
