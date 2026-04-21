@@ -149,7 +149,7 @@ function toSuperscript(n) {
 }
 
 // ─── Petri Dish SVG ─────────────────────────────────────────
-function PetriDish({ cellCount, animScale }) {
+function PetriDish({ cellCount, splitCells, onCellClick, canClick, lang }) {
   const W = 300, H = 200
   const dishCx = W / 2, dishCy = H / 2 + 5
   const dishR = 80
@@ -184,21 +184,46 @@ function PetriDish({ cellCount, animScale }) {
       <circle cx={dishCx} cy={dishCy} r={dishR + 4} fill="none" stroke="#94A3B8" strokeWidth={2} opacity={0.4} />
       <circle cx={dishCx} cy={dishCy} r={dishR} fill="url(#dishGrad)" stroke="#CBD5E1" strokeWidth={1.5} />
 
-      {/* Cells */}
-      {cells.map((pos, i) => (
-        <g key={i} transform={`translate(${pos.x}, ${pos.y})`}>
-          <circle cx={0} cy={0} r={cellR * Math.min(animScale, 1)}
-            fill="#4ECDC4" opacity={0.85} stroke="#2DD4A8" strokeWidth={0.8} />
-          <circle cx={-cellR * 0.15} cy={-cellR * 0.15} r={cellR * 0.3 * Math.min(animScale, 1)}
-            fill="rgba(255,255,255,0.4)" />
-        </g>
-      ))}
+      {/* Cells — clickable for simulate */}
+      {cells.map((pos, i) => {
+        const isSplit = splitCells && splitCells.has(i)
+        const clickable = canClick && !isSplit
+        return (
+          <g key={i} transform={`translate(${pos.x}, ${pos.y})`}
+            onClick={clickable ? () => onCellClick(i) : undefined}
+            style={{ cursor: clickable ? 'pointer' : 'default' }}>
+            {/* Larger hit area */}
+            {clickable && <circle cx={0} cy={0} r={cellR + 6} fill="transparent" />}
+            <circle cx={0} cy={0} r={cellR}
+              fill={isSplit ? '#2DD4A8' : '#4ECDC4'}
+              opacity={isSplit ? 0.5 : 0.85}
+              stroke={clickable ? '#FFE66D' : '#2DD4A8'} strokeWidth={clickable ? 1.5 : 0.8}>
+              {clickable && (
+                <animate attributeName="stroke-opacity" values="1;0.3;1" dur="1.5s" repeatCount="indefinite" />
+              )}
+            </circle>
+            <circle cx={-cellR * 0.15} cy={-cellR * 0.15} r={cellR * 0.3}
+              fill="rgba(255,255,255,0.4)" />
+            {/* Split indicator */}
+            {isSplit && (
+              <text x={0} y={3} textAnchor="middle" fontSize={cellR * 0.8} fill="white" fontWeight={800}>{'\u2713'}</text>
+            )}
+          </g>
+        )
+      })}
 
       {/* Cell count label */}
       <text x={dishCx} y={18} textAnchor="middle" fontSize={14} fontWeight={800}
         fill="#0D9488" fontFamily="Nunito, sans-serif">
         {cellCount} {cellCount === 1 ? 'cell' : 'cells'}
       </text>
+
+      {/* Hint for clickable */}
+      {canClick && (
+        <text x={dishCx} y={H - 6} textAnchor="middle" fontSize={9} fill="#64748B" fontFamily="Nunito, sans-serif">
+          {lang === 'zh' ? '\u261D\uFE0F \u70B9\u51FB\u7EC6\u80DE\u8BA9\u5B83\u5206\u88C2' : '\u261D\uFE0F Tap cells to split them'}
+        </text>
+      )}
 
       {/* Decorations */}
       <text x={18} y={26} fontSize={18} opacity={0.2}>{'\uD83E\uDDEC'}</text>
@@ -270,31 +295,42 @@ export default function PowerTower({ levelData, onComplete }) {
   // Simulate state
   const [currentRound, setCurrentRound] = useState(0)
   const [cellCount, setCellCount] = useState(1)
+  const [splitCells, setSplitCells] = useState(new Set())
 
   // Predict state
   const [selectedAnswer, setSelectedAnswer] = useState(null)
 
-  // Animation
-  const animScale = useAnimatedValue(cellCount, 400)
-
   const task = TASKS[taskIndex]
 
-  // Split button for simulate tasks
-  const handleSplit = useCallback(() => {
+  // Click a cell to split it (simulate tasks)
+  const handleCellClick = useCallback((cellIndex) => {
     if (solved || task.type !== 'simulate') return
-    const nextRound = currentRound + 1
-    const newCount = Math.pow(task.base, nextRound)
+    if (splitCells.has(cellIndex)) return
 
-    setCurrentRound(nextRound)
-    setCellCount(newCount)
+    const newSplit = new Set(splitCells)
+    newSplit.add(cellIndex)
+    setSplitCells(newSplit)
 
-    if (nextRound >= task.rounds) {
+    // Check if all cells in current round are split
+    if (newSplit.size >= cellCount) {
+      // All cells split! Advance to next round
+      const nextRound = currentRound + 1
+      const newCount = Math.pow(task.base, nextRound)
+
       setTimeout(() => {
-        setSolved(true)
-        setShowExplanation(true)
-      }, 600)
+        setCurrentRound(nextRound)
+        setCellCount(newCount)
+        setSplitCells(new Set())
+
+        if (nextRound >= task.rounds) {
+          setTimeout(() => {
+            setSolved(true)
+            setShowExplanation(true)
+          }, 400)
+        }
+      }, 300)
     }
-  }, [task, currentRound, solved])
+  }, [task, cellCount, currentRound, splitCells, solved])
 
   // Predict answer
   const handlePredict = useCallback((val) => {
@@ -353,8 +389,8 @@ export default function PowerTower({ levelData, onComplete }) {
   const hints = task.type === 'simulate'
     ? [
         lang === 'zh'
-          ? `\u6BCF\u8F6E\u6BCF\u4E2A\u7EC6\u80DE\u90FD\u5206\u88C2\u6210 ${task.base} \u4E2A\uFF01\u6309\u201C\u5206\u88C2\u201D\u7EE7\u7EED\u3002`
-          : `Each round, every cell splits into ${task.base}! Press SPLIT to continue.`,
+          ? `\u70B9\u51FB\u6BCF\u4E2A\u7EC6\u80DE\u8BA9\u5B83\u5206\u88C2\u6210 ${task.base} \u4E2A\uFF01`
+          : `Tap each cell to split it into ${task.base}!`,
         lang === 'zh'
           ? '\u6307\u6570 = \u91CD\u590D\u4E58\u6CD5\u30022\u00B3 \u5C31\u662F 2\u00D72\u00D72\uFF01'
           : 'Exponent = repeated multiplication. 2\u00B3 means 2\u00D72\u00D72!',
@@ -397,7 +433,13 @@ export default function PowerTower({ levelData, onComplete }) {
         alignItems: 'flex-start', maxWidth: 600, width: '100%',
       }}>
         <div className="card" style={{ flex: '1 1 300px', maxWidth: 420, padding: '12px 8px' }}>
-          <PetriDish cellCount={cellCount} animScale={1} />
+          <PetriDish
+            cellCount={cellCount}
+            splitCells={task.type === 'simulate' ? splitCells : null}
+            onCellClick={handleCellClick}
+            canClick={task.type === 'simulate' && !solved}
+            lang={lang}
+          />
         </div>
         <ExponentRecord
           base={task.base}
@@ -407,19 +449,13 @@ export default function PowerTower({ levelData, onComplete }) {
         />
       </div>
 
-      {/* Simulate: Split button */}
+      {/* Simulate: no button — click cells directly in petri dish */}
       {task.type === 'simulate' && !solved && (
-        <button className="btn btn-primary" onClick={handleSplit}
-          style={{
-            padding: '14px 36px', fontSize: 18, fontWeight: 800,
-            background: 'linear-gradient(135deg, #4ECDC4, #2DD4A8)',
-            border: 'none', color: '#fff', borderRadius: 12,
-            boxShadow: '0 4px 12px rgba(78,205,196,0.4)',
-          }}>
+        <div style={{ fontSize: 14, color: '#64748B', textAlign: 'center' }}>
           {lang === 'zh'
-            ? `\uD83D\uDD2C \u5206\u88C2\uFF01(\u7B2C ${currentRound + 1} \u8F6E)`
-            : `\uD83D\uDD2C SPLIT! (Round ${currentRound + 1})`}
-        </button>
+            ? `\u{1F52C} \u7B2C ${currentRound + 1} \u8F6E\uFF1A\u5DF2\u5206\u88C2 ${splitCells.size}/${cellCount}`
+            : `\u{1F52C} Round ${currentRound + 1}: ${splitCells.size}/${cellCount} split`}
+        </div>
       )}
 
       {/* Predict: Option buttons */}
@@ -484,7 +520,7 @@ export default function PowerTower({ levelData, onComplete }) {
             solved
               ? task.explanation[lang]
               : task.type === 'simulate'
-                ? (lang === 'zh' ? '\u6309\u201C\u5206\u88C2\u201D\u6309\u94AE\uFF0C\u770B\u7EC6\u80DE\u600E\u4E48\u7FFB\u500D\u589E\u957F\uFF01' : 'Press SPLIT and watch the cells double!')
+                ? (lang === 'zh' ? '\u70B9\u51FB\u6BCF\u4E2A\u7EC6\u80DE\u8BA9\u5B83\u5206\u88C2\uFF01' : 'Tap each cell to make it split!')
                 : (lang === 'zh' ? '\u770B\u770B\u89C4\u5F8B\uFF0C\u9884\u6D4B\u4E0B\u4E00\u4E2A\u6307\u6570\u7684\u7ED3\u679C\uFF01' : 'See the pattern, predict the next power!')
           }
           hints={hints}

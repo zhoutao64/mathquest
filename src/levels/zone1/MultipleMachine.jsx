@@ -101,7 +101,7 @@ function DrumIcon({ x, y, color, size = 20 }) {
 }
 
 // ─── Beat Timeline SVG ──────────────────────────────────────
-function BeatTimeline({ task, selectedBeats, wrongBeats, solved, lang }) {
+function BeatTimeline({ task, selectedBeats, wrongBeats, solved, lang, onBeatClick }) {
   const isLcm = task.type === 'find_lcm'
   const count = task.range
   const W = Math.max(380, count * 28 + 60)
@@ -145,7 +145,7 @@ function BeatTimeline({ task, selectedBeats, wrongBeats, solved, lang }) {
           <line x1={padL} y1={trackBY} x2={padL + trackW} y2={trackBY}
             stroke="#334155" strokeWidth={2} />
 
-          {/* Beat circles */}
+          {/* Beat circles — clickable */}
           {Array.from({ length: count }, (_, i) => {
             const n = i + 1
             const cx = padL + (i + 0.5) * spacing
@@ -155,9 +155,16 @@ function BeatTimeline({ task, selectedBeats, wrongBeats, solved, lang }) {
             const isSelected = selectedBeats.includes(n)
             const isWrong = wrongBeats.includes(n)
             const isAnswer = n === task.answer
+            const clickable = !solved
 
             return (
-              <g key={n}>
+              <g key={n} onClick={clickable ? () => onBeatClick(n) : undefined}
+                style={{ cursor: clickable ? 'pointer' : 'default' }}>
+                {/* Larger hit area between tracks */}
+                {clickable && (
+                  <rect x={cx - spacing / 2} y={trackAY - 14} width={spacing} height={trackBY - trackAY + 28}
+                    fill="transparent" />
+                )}
                 {/* Track A beat */}
                 <circle cx={cx} cy={trackAY} r={isMultA ? 9 : 6}
                   fill={isMultA ? trackAColor : '#334155'}
@@ -234,7 +241,7 @@ function BeatTimeline({ task, selectedBeats, wrongBeats, solved, lang }) {
             x{task.base}
           </text>
 
-          {/* Beat circles */}
+          {/* Beat circles — clickable */}
           {Array.from({ length: count }, (_, i) => {
             const n = i + 1
             const cx = padL + (i + 0.5) * spacing
@@ -242,16 +249,21 @@ function BeatTimeline({ task, selectedBeats, wrongBeats, solved, lang }) {
             const isSelected = selectedBeats.includes(n)
             const isWrong = wrongBeats.includes(n)
             const correctlySelected = isSelected && isMultiple
+            const clickable = !solved && !correctlySelected
 
             return (
-              <g key={n}>
+              <g key={n} onClick={clickable ? () => onBeatClick(n) : undefined}
+                style={{ cursor: clickable ? 'pointer' : 'default' }}>
+                {/* Larger hit area */}
+                {clickable && (
+                  <circle cx={cx} cy={singleTrackY} r={14} fill="transparent" />
+                )}
                 <circle cx={cx} cy={singleTrackY}
                   r={correctlySelected ? 11 : isSelected || isMultiple ? 9 : 7}
                   fill={
                     correctlySelected ? selectedColor
                       : isWrong ? '#EF4444'
-                        : isSelected ? '#64748B'
-                          : '#334155'
+                        : '#334155'
                   }
                   opacity={correctlySelected ? 1 : isWrong ? 0.6 : 0.6}
                   stroke={correctlySelected ? selectedColor : 'none'} strokeWidth={1.5}>
@@ -371,11 +383,6 @@ export default function MultipleMachine({ levelData, onComplete }) {
     }
   }, [taskIndex, mistakes, onComplete])
 
-  // Click handler buttons for find_lcm
-  const lcmButtons = task.type === 'find_lcm'
-    ? Array.from({ length: task.range }, (_, i) => i + 1)
-    : []
-
   // Hints
   const hints = task.type === 'select_multiples'
     ? [
@@ -428,52 +435,22 @@ export default function MultipleMachine({ levelData, onComplete }) {
         maxWidth: 520, width: '100%', padding: '12px 8px',
         overflow: 'auto',
       }}>
+        {!solved && (
+          <div style={{ fontSize: 13, letterSpacing: 1, color: '#64748B', marginBottom: 6, textAlign: 'center' }}>
+            {task.type === 'select_multiples'
+              ? (lang === 'zh' ? '\u261D\uFE0F \u70B9\u51FB\u8282\u62CD\u5708\u201C\u6572\u9F13\u201D' : '\u261D\uFE0F TAP the beat circles to "drum"')
+              : (lang === 'zh' ? '\u261D\uFE0F \u70B9\u51FB\u4F60\u8BA4\u4E3A\u540C\u6B65\u7684\u8282\u62CD' : '\u261D\uFE0F TAP the beat you think syncs')}
+          </div>
+        )}
         <BeatTimeline
           task={task}
           selectedBeats={selectedBeats}
           wrongBeats={wrongBeats}
           solved={solved}
           lang={lang}
+          onBeatClick={handleBeatClick}
         />
       </div>
-
-      {/* Beat selection buttons */}
-      {!solved && (
-        <div>
-          <div style={{ fontSize: 14, color: '#64748B', textAlign: 'center', marginBottom: 8 }}>
-            {task.type === 'select_multiples'
-              ? (lang === 'zh' ? '点击选择倍数拍：' : 'Tap the multiple beats:')
-              : (lang === 'zh' ? '选择第一个同步拍：' : 'Pick the first sync beat:')}
-          </div>
-          <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', justifyContent: 'center', maxWidth: 420 }}>
-            {(task.type === 'select_multiples'
-              ? Array.from({ length: task.range }, (_, i) => i + 1)
-              : lcmButtons
-            ).map(n => {
-              const isCorrect = task.type === 'select_multiples'
-                ? selectedBeats.includes(n)
-                : false
-              const isWrong = wrongBeats.includes(n)
-              return (
-                <button key={n} className="btn"
-                  onClick={() => handleBeatClick(n)}
-                  disabled={isCorrect}
-                  style={{
-                    padding: '8px 0', fontSize: 16, fontWeight: 800,
-                    minWidth: 40, width: 40,
-                    background: isCorrect ? '#A78BFA' : isWrong ? '#FEE2E2' : '#fff',
-                    border: `2px solid ${isCorrect ? '#A78BFA' : isWrong ? '#EF4444' : '#CBD5E1'}`,
-                    color: isCorrect ? '#fff' : isWrong ? '#DC2626' : '#1E293B',
-                    opacity: isCorrect ? 0.8 : 1,
-                    borderRadius: 8,
-                  }}>
-                  {n}
-                </button>
-              )
-            })}
-          </div>
-        </div>
-      )}
 
       {/* Explanation */}
       {showExplanation && (
