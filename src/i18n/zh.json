@@ -1,0 +1,109 @@
+{
+  "common": {
+    "play": "开始",
+    "settings": "设置",
+    "collection": "图鉴",
+    "back": "返回",
+    "next": "下一步",
+    "confirm": "确认",
+    "exit": "退出",
+    "complete": "完成！",
+    "locked": "未解锁",
+    "stars": "星星",
+    "level": "等级",
+    "missionComplete": "关卡完成！",
+    "tryAgain": "再试一次",
+    "continue": "继续"
+  },
+  "home": {
+    "title": "数学大冒险",
+    "subtitle": "拯救数学王国！",
+    "startAdventure": "开始冒险",
+    "continueAdventure": "继续冒险"
+  },
+  "character": {
+    "title": "选择你的英雄",
+    "milo": "米洛",
+    "maya": "玛雅",
+    "miloDesc": "充满好奇和勇气，总是准备好迎接挑战",
+    "mayaDesc": "聪明有创意，热爱解决难题"
+  },
+  "worldMap": {
+    "title": "数学王国",
+    "crystalProgress": "水晶修复",
+    "restoreAll": "修复六块水晶碎片，拯救王国"
+  },
+  "zones": {
+    "zone1": {
+      "name": "数字堡垒",
+      "desc": "掌握数字、分数和运算",
+      "guardian": "数仔"
+    },
+    "zone2": {
+      "name": "比率实验室",
+      "desc": "发现比率和比例的力量",
+      "guardian": "比例罗斯"
+    },
+    "zone3": {
+      "name": "方程竞技场",
+      "desc": "解方程恢复平衡",
+      "guardian": "等号伊芙"
+    },
+    "zone4": {
+      "name": "函数峡谷",
+      "desc": "探索规律和线性关系",
+      "guardian": "线段里奥"
+    },
+    "zone5": {
+      "name": "几何王国",
+      "desc": "重建图形，发现空间真理",
+      "guardian": "形状萨姆"
+    },
+    "zone6": {
+      "name": "数据地牢",
+      "desc": "揭开数据中隐藏的真相",
+      "guardian": "数据迪"
+    }
+  },
+  "zone1Levels": {
+    "level1": {
+      "name": "分数盛宴",
+      "objective": "把蛋糕切成正确的分数",
+      "topic": "什么是分数？"
+    },
+    "level2": {
+      "name": "分数狂潮",
+      "objective": "找到等价分数配对来消除",
+      "topic": "等价分数与加法"
+    },
+    "level3": {
+      "name": "小数冲刺",
+      "objective": "在数轴跑道上收集小数",
+      "topic": "数轴上的小数"
+    },
+    "level4": { "name": "负数深潜", "objective": "驾驶潜水艇到达正确深度", "topic": "负数" },
+    "level5": { "name": "绝对值冒险", "objective": "测量到零点的距离", "topic": "绝对值" },
+    "level6": { "name": "因数工厂", "objective": "把数字分到正确的因数箱", "topic": "因数与最大公因数" },
+    "level7": { "name": "倍数机器", "objective": "同步鼓手的节拍", "topic": "倍数与最小公倍数" },
+    "level8": { "name": "指数之塔", "objective": "观察细胞分裂翻倍", "topic": "指数" },
+    "level9": { "name": "根号花园", "objective": "用瓷砖拼出完美正方形", "topic": "平方根" },
+    "level10": { "name": "无理数探索者", "objective": "放大数轴探索", "topic": "无理数" }
+  },
+  "professor": {
+    "greeting": "欢迎来到数学王国！我是π教授。",
+    "zone1Intro": "数字堡垒陷入了混乱！数字全都乱套了。让我们一起修复它。",
+    "level1Intro": "今天蛋糕店开张！客人想要蛋糕的一部分——我们得学会怎么切！",
+    "level1Summary": "分数就是把一个整体平均分成几份，取其中几份。分母是总份数，分子是你拿的份数。",
+    "level2Intro": "这些果冻看起来标签不同，但有些其实一样大——找找看！",
+    "level2Summary": "等价分数是同一个大小的不同写法。1/2 = 2/4 = 3/6。",
+    "level3Intro": "这条跑道是一条数轴，整数之间还有很多位置——这就是小数住的地方！",
+    "level3Summary": "小数表示整数之间的位置。0.5 就是 0 和 1 的正中间。"
+  },
+  "result": {
+    "title": "关卡完成！",
+    "xpEarned": "获得经验",
+    "newCard": "获得新知识卡！",
+    "backToMap": "返回地图",
+    "nextLevel": "下一关"
+  }
+}

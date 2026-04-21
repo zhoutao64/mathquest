@@ -1,0 +1,109 @@
+{
+  "common": {
+    "play": "Play",
+    "settings": "Settings",
+    "collection": "Collection",
+    "back": "Back",
+    "next": "Next",
+    "confirm": "Confirm",
+    "exit": "Exit",
+    "complete": "Complete!",
+    "locked": "Locked",
+    "stars": "Stars",
+    "level": "Level",
+    "missionComplete": "Mission Complete!",
+    "tryAgain": "Try Again",
+    "continue": "Continue"
+  },
+  "home": {
+    "title": "MathQuest",
+    "subtitle": "Save the Math Kingdom!",
+    "startAdventure": "Start Adventure",
+    "continueAdventure": "Continue Adventure"
+  },
+  "character": {
+    "title": "Choose Your Hero",
+    "milo": "Milo",
+    "maya": "Maya",
+    "miloDesc": "Curious and brave, always ready for a challenge",
+    "mayaDesc": "Creative and clever, loves solving puzzles"
+  },
+  "worldMap": {
+    "title": "Math Kingdom",
+    "crystalProgress": "Crystal Repair",
+    "restoreAll": "Restore all six Crystal Shards to save the kingdom"
+  },
+  "zones": {
+    "zone1": {
+      "name": "Number Fortress",
+      "desc": "Master numbers, fractions, and operations",
+      "guardian": "Digit"
+    },
+    "zone2": {
+      "name": "Ratio Lab",
+      "desc": "Discover the power of ratios and proportions",
+      "guardian": "Ratio Rose"
+    },
+    "zone3": {
+      "name": "Equation Arena",
+      "desc": "Solve equations to restore balance",
+      "guardian": "Equal Eve"
+    },
+    "zone4": {
+      "name": "Function Valley",
+      "desc": "Explore patterns and linear relationships",
+      "guardian": "Line Leo"
+    },
+    "zone5": {
+      "name": "Geometry Kingdom",
+      "desc": "Rebuild shapes and discover spatial truths",
+      "guardian": "Shape Sam"
+    },
+    "zone6": {
+      "name": "Data Dungeon",
+      "desc": "Uncover the truth hidden in data",
+      "guardian": "Data Dee"
+    }
+  },
+  "zone1Levels": {
+    "level1": {
+      "name": "Fraction Feast",
+      "objective": "Cut cakes into the right fractions",
+      "topic": "What is a fraction?"
+    },
+    "level2": {
+      "name": "Fraction Frenzy",
+      "objective": "Match equivalent fractions to clear the board",
+      "topic": "Equivalent fractions & addition"
+    },
+    "level3": {
+      "name": "Decimal Dash",
+      "objective": "Run along the number line collecting decimals",
+      "topic": "Decimals on the number line"
+    },
+    "level4": { "name": "Negative Plunge", "objective": "Dive the submarine to the right depth", "topic": "Negative numbers" },
+    "level5": { "name": "Absolute Adventure", "objective": "Measure distances from zero", "topic": "Absolute value" },
+    "level6": { "name": "Factor Factory", "objective": "Sort numbers into factor bins", "topic": "Factors & GCF" },
+    "level7": { "name": "Multiple Machine", "objective": "Sync the drum beats", "topic": "Multiples & LCM" },
+    "level8": { "name": "Power Tower", "objective": "Watch cells multiply", "topic": "Exponents" },
+    "level9": { "name": "Root Garden", "objective": "Build perfect squares from tiles", "topic": "Square roots" },
+    "level10": { "name": "Irrational Explorer", "objective": "Zoom into the number line", "topic": "Irrational numbers" }
+  },
+  "professor": {
+    "greeting": "Welcome to Math Kingdom! I'm Professor Pi.",
+    "zone1Intro": "The Number Fortress has fallen into chaos! Numbers are all mixed up. Let's fix this together.",
+    "level1Intro": "Today the cake shop is open! Customers want a part of the cake — let's learn to cut!",
+    "level1Summary": "A fraction means dividing a whole into equal parts. The denominator is the total, the numerator is what you take.",
+    "level2Intro": "These jellies look different, but some are actually the same size — find the matches!",
+    "level2Summary": "Equivalent fractions are different ways to write the same amount. 1/2 = 2/4 = 3/6.",
+    "level3Intro": "This track is a number line. Between the whole numbers, there are even more positions — that's where decimals live!",
+    "level3Summary": "Decimals show positions between whole numbers. 0.5 means halfway between 0 and 1."
+  },
+  "result": {
+    "title": "Level Complete!",
+    "xpEarned": "XP Earned",
+    "newCard": "New Knowledge Card!",
+    "backToMap": "Back to Map",
+    "nextLevel": "Next Level"
+  }
+}
