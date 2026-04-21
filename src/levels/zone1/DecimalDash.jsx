@@ -1,6 +1,51 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import ProfessorPi from '../../components/ProfessorPi'
+
+// ─── Smooth animation hook ──────────────────────────────────
+function useAnimatedValue(target, duration = 400) {
+  const [display, setDisplay] = useState(target)
+  const rafRef = useRef(null)
+  const fromRef = useRef(target)
+
+  useEffect(() => {
+    const from = fromRef.current
+    if (from === target) return
+
+    if (rafRef.current) cancelAnimationFrame(rafRef.current)
+    const startTime = performance.now()
+    const startVal = from
+
+    const animate = (now) => {
+      const elapsed = now - startTime
+      const progress = Math.min(elapsed / duration, 1)
+      // ease-out cubic
+      const eased = 1 - Math.pow(1 - progress, 3)
+      const current = startVal + (target - startVal) * eased
+
+      setDisplay(current)
+      fromRef.current = current
+
+      if (progress < 1) {
+        rafRef.current = requestAnimationFrame(animate)
+      } else {
+        fromRef.current = target
+        setDisplay(target)
+      }
+    }
+
+    rafRef.current = requestAnimationFrame(animate)
+    return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current) }
+  }, [target, duration])
+
+  const reset = useCallback((val) => {
+    if (rafRef.current) cancelAnimationFrame(rafRef.current)
+    fromRef.current = val
+    setDisplay(val)
+  }, [])
+
+  return { display, isAnimating: display !== target, reset }
+}
 
 // ─── Task Data ───────────────────────────────────────────────
 const TASKS = [
@@ -43,13 +88,14 @@ const TASKS = [
 ]
 
 // ─── Number Line SVG ─────────────────────────────────────────
-function NumberLine({ range, target, playerPos, coins, collectedCoins, onTap, solved }) {
+function NumberLine({ range, target, playerPos, animatedPos, isRunning, coins, collectedCoins, onTap, solved }) {
   const [min, max] = range
-  const W = 340, H = 120
+  const W = 340, H = 140
   const pad = 30
-  const lineY = 70
+  const lineY = 80
 
   const toX = (val) => pad + ((val - min) / (max - min)) * (W - 2 * pad)
+  const facingRight = animatedPos <= playerPos
 
   // Handle click/tap on SVG
   const handleClick = (e) => {
@@ -121,16 +167,55 @@ function NumberLine({ range, target, playerPos, coins, collectedCoins, onTap, so
         )
       })}
 
-      {/* Player character */}
-      <g style={{ transition: 'transform 0.3s ease-out' }}>
-        <text x={toX(playerPos)} y={lineY - 6} textAnchor="middle" fontSize={24}>
-          🏃
-        </text>
+      {/* Player character — SVG runner */}
+      <g transform={`translate(${toX(animatedPos)}, ${lineY - 28})`}>
+        <g transform={facingRight ? '' : 'scale(-1,1)'} style={{ transformOrigin: '0px 14px' }}>
+          {/* Head */}
+          <circle cx={0} cy={-6} r={7} fill="#FFD4A8" />
+          <path d="M -5 -10 Q 0 -16 5 -10" fill="#5C3D2E" />
+          <circle cx={-2} cy={-7} r={1.2} fill="#1E293B" />
+          <circle cx={3} cy={-7} r={1.2} fill="#1E293B" />
+          <path d="M -2 -3 Q 0.5 0 3 -3" fill="none" stroke="#D97706" strokeWidth={1} strokeLinecap="round" />
+          {/* Body */}
+          <rect x={-4} y={1} width={8} height={12} rx={3} fill="#60A5FA" />
+          {/* Legs */}
+          {isRunning ? (
+            <>
+              <line x1={-2} y1={13} x2={-6} y2={22} stroke="#374151" strokeWidth={3} strokeLinecap="round">
+                <animate attributeName="x2" values="-6;2;-6" dur="0.3s" repeatCount="indefinite" />
+              </line>
+              <line x1={2} y1={13} x2={6} y2={22} stroke="#374151" strokeWidth={3} strokeLinecap="round">
+                <animate attributeName="x2" values="6;-2;6" dur="0.3s" repeatCount="indefinite" />
+              </line>
+            </>
+          ) : (
+            <>
+              <line x1={-2} y1={13} x2={-3} y2={22} stroke="#374151" strokeWidth={3} strokeLinecap="round" />
+              <line x1={2} y1={13} x2={3} y2={22} stroke="#374151" strokeWidth={3} strokeLinecap="round" />
+            </>
+          )}
+          {/* Arms */}
+          {isRunning ? (
+            <>
+              <line x1={-4} y1={4} x2={-9} y2={10} stroke="#60A5FA" strokeWidth={2.5} strokeLinecap="round">
+                <animate attributeName="x2" values="-9;-3;-9" dur="0.3s" repeatCount="indefinite" />
+              </line>
+              <line x1={4} y1={4} x2={9} y2={10} stroke="#60A5FA" strokeWidth={2.5} strokeLinecap="round">
+                <animate attributeName="x2" values="9;3;9" dur="0.3s" repeatCount="indefinite" />
+              </line>
+            </>
+          ) : (
+            <>
+              <line x1={-4} y1={4} x2={-7} y2={10} stroke="#60A5FA" strokeWidth={2.5} strokeLinecap="round" />
+              <line x1={4} y1={4} x2={7} y2={10} stroke="#60A5FA" strokeWidth={2.5} strokeLinecap="round" />
+            </>
+          )}
+        </g>
       </g>
 
       {/* Position indicator */}
-      <text x={toX(playerPos)} y={lineY + 42} textAnchor="middle" fill="#1E293B" fontSize={13} fontWeight={800} fontFamily="Nunito, sans-serif">
-        {playerPos.toFixed(2)}
+      <text x={toX(animatedPos)} y={lineY + 42} textAnchor="middle" fill="#1E293B" fontSize={13} fontWeight={800} fontFamily="Nunito, sans-serif">
+        {isRunning ? animatedPos.toFixed(2) : playerPos.toFixed(2)}
       </text>
     </svg>
   )
@@ -143,6 +228,7 @@ export default function DecimalDash({ levelData, onComplete }) {
 
   const [taskIndex, setTaskIndex] = useState(0)
   const [playerPos, setPlayerPos] = useState(0)
+  const { display: animatedPos, isAnimating, reset: resetAnim } = useAnimatedValue(playerPos)
   const [solved, setSolved] = useState(false)
   const [mistakes, setMistakes] = useState(0)
   const [showHint, setShowHint] = useState(false)
@@ -200,6 +286,7 @@ export default function DecimalDash({ levelData, onComplete }) {
     } else {
       setTaskIndex(next)
       setPlayerPos(0)
+      resetAnim(0)
       setSolved(false)
       setShowHint(false)
       setShowExplanation(false)
@@ -253,6 +340,8 @@ export default function DecimalDash({ levelData, onComplete }) {
           range={task.range}
           target={task.target}
           playerPos={playerPos}
+          animatedPos={animatedPos}
+          isRunning={isAnimating}
           coins={task.coins}
           collectedCoins={collectedCoins}
           onTap={handleTap}
