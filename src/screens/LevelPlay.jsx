@@ -2,7 +2,7 @@ import { Suspense, lazy, useCallback, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import useGameStore from '../store/useGameStore'
-import { ZONE1_LEVELS } from '../levels/zone1'
+import { ZONE1_LEVELS, ZONE1_BOSS } from '../levels/zone1'
 import DialogueBox from '../components/DialogueBox'
 import { getCutscene } from '../data/cutscenes'
 
@@ -14,6 +14,9 @@ const AbsoluteAdventure = lazy(() => import('../levels/zone1/AbsoluteAdventure')
 const FactorFactory = lazy(() => import('../levels/zone1/FactorFactory'))
 const MultipleMachine = lazy(() => import('../levels/zone1/MultipleMachine'))
 const PowerTower = lazy(() => import('../levels/zone1/PowerTower'))
+const RootGarden = lazy(() => import('../levels/zone1/RootGarden'))
+const IrrationalExplorer = lazy(() => import('../levels/zone1/IrrationalExplorer'))
+const NumberGolem = lazy(() => import('../levels/zone1/NumberGolem'))
 
 const levelComponents = {
   1: FractionFeast,
@@ -24,6 +27,9 @@ const levelComponents = {
   6: FactorFactory,
   7: MultipleMachine,
   8: PowerTower,
+  9: RootGarden,
+  10: IrrationalExplorer,
+  boss: NumberGolem,
 }
 
 function LoadingSpinner() {
@@ -56,18 +62,20 @@ export default function LevelPlay() {
   const navigate = useNavigate()
   const { t } = useTranslation()
   const completeLevel = useGameStore((s) => s.completeLevel)
+  const defeatBoss = useGameStore((s) => s.defeatBoss)
   const addXP = useGameStore((s) => s.addXP)
   const addCard = useGameStore((s) => s.addCard)
   const hasCutsceneSeen = useGameStore((s) => s.hasCutsceneSeen)
   const markCutsceneSeen = useGameStore((s) => s.markCutsceneSeen)
 
-  const numericLevelId = Number(levelId)
-  const levelData = ZONE1_LEVELS.find((l) => l.id === numericLevelId)
+  const isBoss = levelId === 'boss'
+  const numericLevelId = isBoss ? 'boss' : Number(levelId)
+  const levelData = isBoss ? ZONE1_BOSS : ZONE1_LEVELS.find((l) => l.id === numericLevelId)
   const LevelComponent = levelComponents[numericLevelId]
 
   // Cutscene IDs for this level
-  const introId = `${zoneId}_level${levelId}_intro`
-  const outroId = `${zoneId}_level${levelId}_outro`
+  const introId = isBoss ? `${zoneId}_boss_intro` : `${zoneId}_level${levelId}_intro`
+  const outroId = isBoss ? `${zoneId}_boss_outro` : `${zoneId}_level${levelId}_outro`
   const introScenes = getCutscene(introId)
   const outroScenes = getCutscene(outroId)
 
@@ -85,8 +93,11 @@ export default function LevelPlay() {
   // Level gameplay finished
   const handleComplete = useCallback(
     ({ stars, mistakes }) => {
+      if (isBoss) {
+        defeatBoss(zoneId)
+      }
       completeLevel(zoneId, numericLevelId, stars)
-      const xpEarned = stars * 30
+      const xpEarned = isBoss ? levelData?.xpReward || 150 : stars * 30
       addXP(xpEarned)
       if (levelData?.cardId) {
         addCard(levelData.cardId)
@@ -100,7 +111,7 @@ export default function LevelPlay() {
         navigate(`/zone/${zoneId}/level/${levelId}/result?stars=${stars}&xp=${xpEarned}&mistakes=${mistakes}`)
       }
     },
-    [zoneId, numericLevelId, levelId, levelData, completeLevel, addXP, addCard, navigate, outroScenes, outroId, hasCutsceneSeen]
+    [zoneId, numericLevelId, levelId, levelData, isBoss, completeLevel, defeatBoss, addXP, addCard, navigate, outroScenes, outroId, hasCutsceneSeen]
   )
 
   // Outro dialogue finished

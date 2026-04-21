@@ -511,6 +511,156 @@ export const CUTSCENES = {
       zh: "Bug仔，你的失败也在指数增长呢。2\u00B9 次失败，2\u00B2 次失败，2\u00B3 次失败……",
     },
   ],
+
+  // ═══════════════════════════════════════════════════════════
+  // LEVEL 9: ROOT GARDEN — Square Roots
+  // ═══════════════════════════════════════════════════════════
+
+  zone1_level9_intro: [
+    {
+      speaker: 'narrator',
+      en: "Deep within the fortress, they discover a beautiful garden — but something is terribly wrong.",
+      zh: "\u5728\u8981\u585E\u6DF1\u5904\uFF0C\u4ED6\u4EEC\u53D1\u73B0\u4E86\u4E00\u5EA7\u7F8E\u4E3D\u7684\u82B1\u56ED\u2014\u2014\u4F46\u6709\u4E9B\u4E1C\u897F\u4E25\u91CD\u4E0D\u5BF9\u52B2\u3002",
+    },
+    {
+      speaker: 'digit', emotion: 'surprised',
+      en: "The garden tiles are all scattered! Nothing grows in messy soil.",
+      zh: "\u82B1\u56ED\u7684\u74F7\u7816\u5168\u6563\u4E86\uFF01\u4E71\u7CDF\u7CDF\u7684\u571F\u58E4\u91CC\u4EC0\u4E48\u4E5F\u957F\u4E0D\u51FA\u6765\u3002",
+    },
+    {
+      speaker: 'bug', emotion: 'smug',
+      en: "Ha! I scrambled all the garden beds. Good luck figuring out how to arrange THOSE!",
+      zh: "\u54C8\uFF01\u6211\u628A\u6240\u6709\u7684\u82B1\u5703\u90FD\u6253\u4E71\u4E86\u3002\u4F60\u4EEC\u6709\u672C\u4E8B\u5C31\u628A\u5B83\u4EEC\u6446\u597D\u5427\uFF01",
+    },
+    {
+      speaker: 'professor', emotion: 'thinking',
+      en: "These tiles need to form perfect squares to grow. The side length of each square... is the square root!",
+      zh: "\u8FD9\u4E9B\u74F7\u7816\u9700\u8981\u62FC\u6210\u5B8C\u7F8E\u7684\u6B63\u65B9\u5F62\u624D\u80FD\u751F\u957F\u3002\u6BCF\u4E2A\u6B63\u65B9\u5F62\u7684\u8FB9\u957F\u2026\u2026\u5C31\u662F\u5E73\u65B9\u6839\uFF01",
+    },
+  ],
+
+  zone1_level9_outro: [
+    {
+      speaker: 'digit', emotion: 'celebrating',
+      en: "The garden is blooming! \u221A16 = 4 because 4\u00D74 = 16. The side length IS the square root!",
+      zh: "\u82B1\u56ED\u7EFD\u653E\u4E86\uFF01\u221A16 = 4\uFF0C\u56E0\u4E3A 4\u00D74 = 16\u3002\u8FB9\u957F\u5C31\u662F\u5E73\u65B9\u6839\uFF01",
+    },
+    {
+      speaker: 'bug', emotion: 'annoyed',
+      en: "Ugh! Every time I scatter something, you just... square it away!",
+      zh: "\u5443\uFF01\u6BCF\u6B21\u6211\u6253\u4E71\u4EC0\u4E48\uFF0C\u4F60\u4EEC\u5C31\u2026\u2026\u7528\u5E73\u65B9\u6839\u641E\u5B9A\u4E86\uFF01",
+    },
+    {
+      speaker: 'professor', emotion: 'happy',
+      en: "Square roots — the reverse of squaring! This knowledge is rooted deep in you now, Digit!",
+      zh: "\u5E73\u65B9\u6839\u2014\u2014\u5E73\u65B9\u7684\u9006\u8FD0\u7B97\uFF01\u8FD9\u4E2A\u77E5\u8BC6\u5DF2\u7ECF\u6DF1\u6DF1\u624E\u6839\u5728\u4F60\u5FC3\u91CC\u4E86\uFF0CDigit\uFF01",
+    },
+  ],
+
+  // ═══════════════════════════════════════════════════════════
+  // LEVEL 10: IRRATIONAL EXPLORER — Irrational Numbers
+  // ═══════════════════════════════════════════════════════════
+
+  zone1_level10_intro: [
+    {
+      speaker: 'narrator',
+      en: "At the edge of the fortress, they reach a mysterious wall covered in endless digits.",
+      zh: "\u5728\u8981\u585E\u8FB9\u7F18\uFF0C\u4ED6\u4EEC\u6765\u5230\u4E00\u9762\u795E\u79D8\u7684\u5899\u58C1\u524D\uFF0C\u4E0A\u9762\u5238\u6EE1\u4E86\u65E0\u5C3D\u7684\u6570\u5B57\u3002",
+    },
+    {
+      speaker: 'digit', emotion: 'confused',
+      en: "1.41421356... these digits never stop! Where does this number end?",
+      zh: "1.41421356\u2026\u2026\u8FD9\u4E9B\u6570\u5B57\u6C38\u8FDC\u4E0D\u505C\uFF01\u8FD9\u4E2A\u6570\u5230\u5E95\u5230\u54EA\u91CC\u624D\u662F\u5934\uFF1F",
+    },
+    {
+      speaker: 'professor', emotion: 'excited',
+      en: "That's exactly the point — it DOESN'T end! Welcome to irrational numbers. \u221A2, \u03C0... they go on forever without repeating!",
+      zh: "\u8FD9\u6B63\u662F\u5173\u952E\u2014\u2014\u5B83\u6C38\u8FDC\u4E0D\u4F1A\u7ED3\u675F\uFF01\u6B22\u8FCE\u6765\u5230\u65E0\u7406\u6570\u7684\u4E16\u754C\u3002\u221A2\u3001\u03C0\u2026\u2026\u5B83\u4EEC\u6C38\u8FDC\u4E0D\u5FAA\u73AF\u5730\u7EE7\u7EED\u4E0B\u53BB\uFF01",
+    },
+    {
+      speaker: 'bug', emotion: 'smug',
+      en: "Ha! You can't even write these numbers down completely. How will you use them?",
+      zh: "\u54C8\uFF01\u4F60\u4EEC\u8FDE\u8FD9\u4E9B\u6570\u5B57\u90FD\u5199\u4E0D\u5B8C\u6574\u3002\u600E\u4E48\u7528\u5462\uFF1F",
+    },
+  ],
+
+  zone1_level10_outro: [
+    {
+      speaker: 'digit', emotion: 'confident',
+      en: "I get it now! \u221A2 goes on forever without repeating — that's irrational. But 1/3 = 0.333... DOES repeat, so it's rational!",
+      zh: "\u6211\u61C2\u4E86\uFF01\u221A2 \u6C38\u8FDC\u4E0D\u5FAA\u73AF\u5730\u7EE7\u7EED\u2014\u2014\u8FD9\u662F\u65E0\u7406\u6570\u3002\u4F46 1/3 = 0.333... \u4F1A\u5FAA\u73AF\uFF0C\u6240\u4EE5\u662F\u6709\u7406\u6570\uFF01",
+    },
+    {
+      speaker: 'bug', emotion: 'annoyed',
+      en: "Stop making sense of things that don't make sense! That's MY job to confuse!",
+      zh: "\u522B\u628A\u4E0D\u5408\u7406\u7684\u4E1C\u897F\u53D8\u5F97\u5408\u7406\uFF01\u5236\u9020\u6DF7\u4E71\u662F\u6211\u7684\u5DE5\u4F5C\uFF01",
+    },
+    {
+      speaker: 'professor', emotion: 'proud',
+      en: "You've mastered every type of number in the fortress! Only the guardian remains...",
+      zh: "\u4F60\u5DF2\u7ECF\u638C\u63E1\u4E86\u8981\u585E\u4E2D\u6BCF\u79CD\u7C7B\u578B\u7684\u6570\u5B57\uFF01\u53EA\u5269\u4E0B\u5B88\u62A4\u8005\u4E86\u2026\u2026",
+    },
+    {
+      speaker: 'digit', emotion: 'determined',
+      en: "Let's go face the Number Golem. I'm ready!",
+      zh: "\u8BA9\u6211\u4EEC\u53BB\u9762\u5BF9\u6570\u5B57\u5DE8\u77F3\u602A\u5427\u3002\u6211\u51C6\u5907\u597D\u4E86\uFF01",
+    },
+  ],
+
+  // ═══════════════════════════════════════════════════════════
+  // BOSS: NUMBER GOLEM — Final Boss of Zone 1
+  // ═══════════════════════════════════════════════════════════
+
+  zone1_boss_intro: [
+    {
+      speaker: 'narrator',
+      en: "At the heart of the Number Fortress stands the ancient guardian — the Number Golem.",
+      zh: "\u5728\u6570\u5B57\u8981\u585E\u7684\u6700\u6DF1\u5904\uFF0C\u53E4\u8001\u7684\u5B88\u62A4\u8005\u2014\u2014\u6570\u5B57\u5DE8\u77F3\u602A\u2014\u2014\u5C79\u7ACB\u5728\u90A3\u91CC\u3002",
+    },
+    {
+      speaker: 'digit', emotion: 'surprised',
+      en: "Wait... I remember now! The Golem used to be my friend! But its eyes... they're glowing blue. Glitch is controlling it!",
+      zh: "\u7B49\u7B49\u2026\u2026\u6211\u60F3\u8D77\u6765\u4E86\uFF01\u5DE8\u77F3\u602A\u66FE\u7ECF\u662F\u6211\u7684\u670B\u53CB\uFF01\u4F46\u5B83\u7684\u773C\u775B\u2026\u2026\u53D1\u7740\u84DD\u5149\u3002Glitch \u5728\u63A7\u5236\u5B83\uFF01",
+    },
+    {
+      speaker: 'professor', emotion: 'serious',
+      en: "We need to use everything we've learned — fractions, number lines, exponents, roots — ALL of it. Are you ready?",
+      zh: "\u6211\u4EEC\u9700\u8981\u7528\u4E0A\u6240\u6709\u5B66\u8FC7\u7684\u77E5\u8BC6\u2014\u2014\u5206\u6570\u3001\u6570\u8F74\u3001\u6307\u6570\u3001\u5E73\u65B9\u6839\u2014\u2014\u5168\u90E8\uFF01\u51C6\u5907\u597D\u4E86\u5417\uFF1F",
+    },
+    {
+      speaker: 'digit', emotion: 'determined',
+      en: "I won't let Glitch use my friend as a weapon. Let's break the spell with math!",
+      zh: "\u6211\u4E0D\u4F1A\u8BA9 Glitch \u628A\u6211\u7684\u670B\u53CB\u5F53\u6B66\u5668\u3002\u7528\u6570\u5B66\u7684\u529B\u91CF\u7834\u89E3\u9B54\u5492\u5427\uFF01",
+    },
+  ],
+
+  zone1_boss_outro: [
+    {
+      speaker: 'narrator',
+      en: "With the last equation solved, the blue glow fades from the Golem's eyes. They turn warm green.",
+      zh: "\u968F\u7740\u6700\u540E\u4E00\u4E2A\u7B49\u5F0F\u88AB\u89E3\u5F00\uFF0C\u5DE8\u77F3\u602A\u773C\u4E2D\u7684\u84DD\u5149\u6E10\u6E10\u6D88\u9000\uFF0C\u53D8\u6210\u4E86\u6E29\u6696\u7684\u7EFF\u8272\u3002",
+    },
+    {
+      speaker: 'digit', emotion: 'celebrating',
+      en: "You're free! I'm so glad you're back, old friend!",
+      zh: "\u4F60\u81EA\u7531\u4E86\uFF01\u8001\u670B\u53CB\uFF0C\u592A\u597D\u4E86\u4F60\u56DE\u6765\u4E86\uFF01",
+    },
+    {
+      speaker: 'narrator',
+      en: "A brilliant light erupts from the fortress walls. The first Crystal Shard rises into Digit's hands.",
+      zh: "\u4E00\u9053\u8000\u773C\u7684\u5149\u8292\u4ECE\u8981\u585E\u5899\u58C1\u4E2D\u8FB8\u53D1\u800C\u51FA\u3002\u7B2C\u4E00\u5757\u6C34\u6676\u788E\u7247\u5347\u8D77\uFF0C\u843D\u5165 Digit \u7684\u624B\u4E2D\u3002",
+    },
+    {
+      speaker: 'professor', emotion: 'proud',
+      en: "One Crystal Shard recovered! The Number Fortress is restored. But five more shards remain scattered across the kingdom...",
+      zh: "\u7B2C\u4E00\u5757\u6C34\u6676\u788E\u7247\u5DF2\u56DE\u6536\uFF01\u6570\u5B57\u8981\u585E\u5DF2\u7ECF\u6062\u590D\u3002\u4F46\u8FD8\u6709\u4E94\u5757\u788E\u7247\u6563\u843D\u5728\u738B\u56FD\u5404\u5904\u2026\u2026",
+    },
+    {
+      speaker: 'bug', emotion: 'scared',
+      en: "G-Glitch is NOT going to like this... I gotta warn the boss! You haven't seen the last of me!",
+      zh: "G-Glitch \u4E0D\u4F1A\u559C\u6B22\u8FD9\u4E2A\u7ED3\u679C\u7684\u2026\u2026\u6211\u5F97\u53BB\u901A\u98CE\u62A5\u4FE1\uFF01\u4F60\u4EEC\u8FD8\u4F1A\u518D\u89C1\u5230\u6211\u7684\uFF01",
+    },
+  ],
 }
 
 // Helper: get cutscene by ID

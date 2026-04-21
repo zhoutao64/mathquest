@@ -240,6 +240,7 @@ export default function ZoneMap() {
 
         {/* Boss card */}
         <div
+          onClick={allLevelsComplete ? () => navigate(`/zone/${zoneId}/level/boss`) : undefined}
           style={{
             background: allLevelsComplete
               ? 'linear-gradient(135deg, rgba(255,107,107,0.12), rgba(167,139,250,0.12))'
@@ -252,6 +253,7 @@ export default function ZoneMap() {
             textAlign: 'center',
             marginTop: 8,
             opacity: allLevelsComplete ? 1 : 0.5,
+            cursor: allLevelsComplete ? 'pointer' : 'default',
             position: 'relative',
             zIndex: 1,
           }}
