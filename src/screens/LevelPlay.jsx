@@ -9,11 +9,13 @@ import { getCutscene } from '../data/cutscenes'
 const FractionFeast = lazy(() => import('../levels/zone1/FractionFeast'))
 const FractionFrenzy = lazy(() => import('../levels/zone1/FractionFrenzy'))
 const DecimalDash = lazy(() => import('../levels/zone1/DecimalDash'))
+const NegativePlunge = lazy(() => import('../levels/zone1/NegativePlunge'))
 
 const levelComponents = {
   1: FractionFeast,
   2: FractionFrenzy,
   3: DecimalDash,
+  4: NegativePlunge,
 }
 
 function LoadingSpinner() {

@@ -231,6 +231,63 @@ export const CUTSCENES = {
       zh: "Glitch\u63A7\u5236\u4E86\u4ED6\u3002\u6211\u4EEC\u5F97\u6551\u4ED6\u3002",
     },
   ],
+
+  // ── Zone 1 Level 4: Negative Plunge ─────────────────────────
+  zone1_level4_intro: [
+    {
+      speaker: 'narrator',
+      en: "Deep beneath the fortress, the team discovers a vast underground lake. Numbers float in the air above... and glow beneath the dark water.",
+      zh: "在堡垒深处，团队发现了一个巨大的地下湖。数字漂浮在空中……也在幽暗的水下发光。",
+    },
+    {
+      speaker: 'digit', emotion: 'confused',
+      en: "Wait — those numbers have a minus sign? -1, -2, -3? What does that even mean?",
+      zh: "等等——那些数字前面有个减号？-1、-2、-3？这是什么意思？",
+    },
+    {
+      speaker: 'professor', emotion: 'encouraging',
+      en: "Those are negative numbers! The water surface is zero. Above is positive, below is negative. The deeper you go, the smaller the number!",
+      zh: "那些是负数！水面就是零。水上是正数，水下是负数。潜得越深，数字越小！",
+    },
+    {
+      speaker: 'bug', emotion: 'smug',
+      en: "Hah! I sank those numbers on purpose! Good luck finding them in the deep!",
+      zh: "哈！那些数字是我故意沉下去的！有本事到深处去找！",
+    },
+    {
+      speaker: 'digit', emotion: 'determined',
+      en: "A submarine! If I can figure out the depth controls, I can rescue them!",
+      zh: "一艘潜水艇！如果我能搞懂深度控制，就能把它们救出来！",
+    },
+  ],
+
+  zone1_level4_outro: [
+    {
+      speaker: 'digit', emotion: 'amazed',
+      en: "I get it now! Negative numbers are just the other side of zero — like underground floors in a building!",
+      zh: "我明白了！负数就是零的另一边——就像大楼的地下楼层！",
+    },
+    {
+      speaker: 'digit', emotion: 'excited',
+      en: "And going deeper means getting MORE negative — -5 is deeper than -2! It's like counting backwards past zero!",
+      zh: "而且越深就越负——-5比-2更深！就像从零开始倒着数！",
+    },
+    {
+      speaker: 'professor', emotion: 'happy',
+      en: "Excellent! You've discovered the entire number line — positive AND negative. That's a big piece of your memory back!",
+      zh: "太棒了！你发现了完整的数轴——正数和负数。又找回一大段记忆！",
+    },
+    {
+      speaker: 'bug', emotion: 'panicked',
+      en: "Impossible! Nobody figures out negative numbers that fast!",
+      zh: "不可能！没人能这么快搞懂负数！",
+    },
+    {
+      speaker: 'digit', emotion: 'sassy',
+      en: "Apparently, I'm not just nobody.",
+      zh: "很明显，我不是一般人。",
+    },
+  ],
 }
 
 // Helper: get cutscene by ID
