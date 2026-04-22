@@ -3,6 +3,7 @@ import { useParams, useNavigate, useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { ZONE1_LEVELS } from '../levels/zone1'
 import { ProfessorPiAvatar } from '../components/characters'
+import SettingsPanel, { SettingsGearButton } from '../components/SettingsPanel'
 
 // Animated SVG star with expression
 function CelebrationStar({ filled, delay = 0, size = 52 }) {
@@ -86,6 +87,8 @@ export default function LevelResult() {
 
   const professorEmotion = stars >= 3 ? 'proud' : stars >= 2 ? 'encouraging' : 'happy'
 
+  const [showSettings, setShowSettings] = useState(false)
+
   // Animated XP counter
   const [displayXP, setDisplayXP] = useState(0)
 
@@ -122,6 +125,9 @@ export default function LevelResult() {
         overflow: 'hidden',
       }}
     >
+      {showSettings && <SettingsPanel onClose={() => setShowSettings(false)} />}
+      <SettingsGearButton onClick={() => setShowSettings(true)} />
+
       {/* Confetti */}
       {stars >= 2 && <Confetti count={stars >= 3 ? 30 : 15} />}
 

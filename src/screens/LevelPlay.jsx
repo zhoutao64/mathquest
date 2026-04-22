@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import useGameStore from '../store/useGameStore'
 import { ZONE1_LEVELS, ZONE1_BOSS } from '../levels/zone1'
 import DialogueBox from '../components/DialogueBox'
+import SettingsPanel, { SettingsGearButton } from '../components/SettingsPanel'
 import { getCutscene } from '../data/cutscenes'
 
 const FractionFeast = lazy(() => import('../levels/zone1/FractionFeast'))
@@ -83,6 +84,7 @@ export default function LevelPlay() {
   const hasIntro = introScenes && !hasCutsceneSeen(introId)
   const [phase, setPhase] = useState(hasIntro ? 'intro_dialogue' : 'playing')
   const [completionData, setCompletionData] = useState(null)
+  const [showSettings, setShowSettings] = useState(false)
 
   // Intro dialogue finished
   const handleIntroComplete = useCallback(() => {
@@ -128,6 +130,8 @@ export default function LevelPlay() {
 
   return (
     <div style={{ minHeight: '100vh', position: 'relative' }}>
+      {showSettings && <SettingsPanel onClose={() => setShowSettings(false)} />}
+      <SettingsGearButton onClick={() => setShowSettings(true)} />
       {/* Exit button — always visible */}
       <button
         onClick={handleExit}

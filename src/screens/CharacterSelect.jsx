@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import useGameStore from '../store/useGameStore'
+import SettingsPanel, { SettingsGearButton } from '../components/SettingsPanel'
 
 // SVG character illustrations (full body standing pose)
 function MiloAvatar({ size = 120 }) {
@@ -121,6 +122,7 @@ export default function CharacterSelect() {
   const { t } = useTranslation()
   const setCharacter = useGameStore((s) => s.setCharacter)
   const [selected, setSelected] = useState(null)
+  const [showSettings, setShowSettings] = useState(false)
 
   const handleConfirm = () => {
     if (!selected) return
@@ -137,8 +139,11 @@ export default function CharacterSelect() {
         alignItems: 'center',
         justifyContent: 'center',
         padding: 20,
+        position: 'relative',
       }}
     >
+      {showSettings && <SettingsPanel onClose={() => setShowSettings(false)} />}
+      <SettingsGearButton onClick={() => setShowSettings(true)} />
       <h1
         style={{
           fontSize: 'clamp(1.8rem, 6vw, 2.5rem)',
