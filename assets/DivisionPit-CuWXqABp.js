@@ -1,1 +1,0 @@
-import{t as e}from"./jsx-runtime-G8ENwUBk.js";import{r as t}from"./tasks-JlJoC1WX.js";import{t as n}from"./LevelWrapper-C4q94yev.js";var r=e();function i({onComplete:e}){return(0,r.jsx)(n,{tasks:t,titleEn:`DIVISION PIT`,titleZh:`\\u9664\\u6CD5\\u5751\\u9053`,onComplete:e})}export{i as default};

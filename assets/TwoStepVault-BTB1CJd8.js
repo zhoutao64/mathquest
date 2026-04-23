@@ -1,0 +1,1 @@
+import{t as e}from"./jsx-runtime-G8ENwUBk.js";import{f as t}from"./tasks-CQfLYI6w.js";import{t as n}from"./LevelWrapper-BPOi9YI4.js";var r=e();function i({onComplete:e}){return(0,r.jsx)(n,{tasks:t,titleEn:`TWO-STEP VAULT`,titleZh:`\\u4E24\\u6B65\\u4FDD\\u9669\\u5E93`,onComplete:e})}export{i as default};

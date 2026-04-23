@@ -1,0 +1,1 @@
+import{t as e}from"./jsx-runtime-G8ENwUBk.js";import{a as t}from"./tasks-CQfLYI6w.js";import{t as n}from"./LevelWrapper-BPOi9YI4.js";var r=e();function i({onComplete:e}){return(0,r.jsx)(n,{tasks:t,titleEn:`FRACTION FORGE`,titleZh:`\\u5206\\u6570\\u953B\\u9020`,onComplete:e})}export{i as default};

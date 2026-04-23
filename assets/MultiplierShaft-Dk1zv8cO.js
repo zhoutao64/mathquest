@@ -1,0 +1,1 @@
+import{t as e}from"./jsx-runtime-G8ENwUBk.js";import{c as t}from"./tasks-CQfLYI6w.js";import{t as n}from"./LevelWrapper-BPOi9YI4.js";var r=e();function i({onComplete:e}){return(0,r.jsx)(n,{tasks:t,titleEn:`MULTIPLIER SHAFT`,titleZh:`\\u4E58\\u6CD5\\u77FF\\u5751`,onComplete:e})}export{i as default};
