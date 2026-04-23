@@ -1,1 +1,0 @@
-import{t as e}from"./jsx-runtime-G8ENwUBk.js";import{a as t,i as n}from"./tasks-CeSgZYf8.js";var r=e();function i({onComplete:e}){return(0,r.jsx)(t,{tasks:n,titleEn:`TWIN MINES`,titleZh:`\\u53CC\\u5B50\\u77FF\\u4E95`,onComplete:e})}export{i as default};

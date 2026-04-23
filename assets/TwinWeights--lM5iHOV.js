@@ -1,0 +1,1 @@
+import{t as e}from"./jsx-runtime-G8ENwUBk.js";import{d as t}from"./tasks-JlJoC1WX.js";import{t as n}from"./LevelWrapper-C4q94yev.js";var r=e();function i({onComplete:e}){return(0,r.jsx)(n,{tasks:t,titleEn:`TWIN WEIGHTS`,titleZh:`\\u53CC\\u5B50\\u79E4`,onComplete:e})}export{i as default};

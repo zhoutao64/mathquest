@@ -1,0 +1,1 @@
+import{t as e}from"./jsx-runtime-G8ENwUBk.js";import{s as t}from"./tasks-JlJoC1WX.js";import{t as n}from"./LevelWrapper-C4q94yev.js";var r=e();function i({onComplete:e}){return(0,r.jsx)(n,{tasks:t,titleEn:`INEQUALITY EDGE`,titleZh:`\\u4E0D\\u7B49\\u5F0F\\u8FB9\\u7F18`,onComplete:e})}export{i as default};

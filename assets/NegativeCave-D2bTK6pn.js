@@ -1,0 +1,1 @@
+import{t as e}from"./jsx-runtime-G8ENwUBk.js";import{l as t}from"./tasks-JlJoC1WX.js";import{t as n}from"./LevelWrapper-C4q94yev.js";var r=e();function i({onComplete:e}){return(0,r.jsx)(n,{tasks:t,titleEn:`NEGATIVE CAVE`,titleZh:`\\u8D1F\\u6570\\u6D1E\\u7A9F`,onComplete:e})}export{i as default};
