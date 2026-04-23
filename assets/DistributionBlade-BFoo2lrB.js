@@ -1,0 +1,1 @@
+import{t as e}from"./jsx-runtime-G8ENwUBk.js";import{n as t}from"./tasks-Cd8Oj7Za.js";import{t as n}from"./LevelWrapper-woNhf6oJ.js";var r=e();function i({onComplete:e}){return(0,r.jsx)(n,{tasks:t,titleEn:`DISTRIBUTION BLADE`,titleZh:`\\u5206\\u914D\\u4E4B\\u5203`,onComplete:e})}export{i as default};
