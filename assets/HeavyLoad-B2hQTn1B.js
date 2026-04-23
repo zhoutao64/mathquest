@@ -1,0 +1,1 @@
+import{t as e}from"./jsx-runtime-G8ENwUBk.js";import{a as t,n}from"./tasks-CeSgZYf8.js";var r=e();function i({onComplete:e}){return(0,r.jsx)(t,{tasks:n,titleEn:`HEAVY LOAD`,titleZh:`\\u6EE1\\u8F7D\\u77FF\\u8F66`,onComplete:e})}export{i as default};

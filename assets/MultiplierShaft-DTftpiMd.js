@@ -1,0 +1,1 @@
+import{t as e}from"./jsx-runtime-G8ENwUBk.js";import{a as t,r as n}from"./tasks-CeSgZYf8.js";var r=e();function i({onComplete:e}){return(0,r.jsx)(t,{tasks:n,titleEn:`MULTIPLIER SHAFT`,titleZh:`\\u4E58\\u6CD5\\u77FF\\u5751`,onComplete:e})}export{i as default};
