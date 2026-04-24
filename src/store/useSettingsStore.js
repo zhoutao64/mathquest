@@ -20,6 +20,8 @@ const useSettingsStore = create(
         localStorage.setItem('mathquest-lang', newLang)
         return { language: newLang }
       }),
+      devMode: false,
+      toggleDevMode: () => set((s) => ({ devMode: !s.devMode })),
       toggleSound: () => set((s) => ({ soundEnabled: !s.soundEnabled })),
       toggleMusic: () => set((s) => ({ musicEnabled: !s.musicEnabled })),
     }),

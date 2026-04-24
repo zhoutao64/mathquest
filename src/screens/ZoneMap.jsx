@@ -3,6 +3,9 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import useGameStore from '../store/useGameStore'
 import { ZONE1_LEVELS, ZONE1_INFO } from '../levels/zone1'
+import { ZONE2_LEVELS, ZONE2_INFO } from '../levels/zone2'
+import { ZONE3_LEVELS, ZONE3_INFO } from '../levels/zone3'
+import { ZONE4_LEVELS, ZONE4_INFO } from '../levels/zone4'
 import StarRating from '../components/StarRating'
 import DialogueBox from '../components/DialogueBox'
 import { getCutscene } from '../data/cutscenes'
@@ -122,8 +125,15 @@ export default function ZoneMap() {
   const hasCutsceneSeen = useGameStore((s) => s.hasCutsceneSeen)
   const markCutsceneSeen = useGameStore((s) => s.markCutsceneSeen)
 
-  const levels = ZONE1_LEVELS
-  const zoneInfo = ZONE1_INFO
+  const ZONE_DATA = {
+    zone1: { levels: ZONE1_LEVELS, info: ZONE1_INFO },
+    zone2: { levels: ZONE2_LEVELS, info: ZONE2_INFO },
+    zone3: { levels: ZONE3_LEVELS, info: ZONE3_INFO },
+    zone4: { levels: ZONE4_LEVELS, info: ZONE4_INFO },
+  }
+  const zoneData = ZONE_DATA[zoneId] || ZONE_DATA.zone1
+  const levels = zoneData.levels
+  const zoneInfo = zoneData.info
 
   // Zone intro cutscene
   const zoneIntroId = `${zoneId}_intro`
@@ -136,7 +146,7 @@ export default function ZoneMap() {
     (lvl) => getLevelStars(zoneId, lvl.id) > 0
   ).length
 
-  const allLevelsComplete = completedCount >= 10
+  const allLevelsComplete = completedCount >= levels.length
   const [showSettings, setShowSettings] = useState(false)
 
   const handleZoneIntroComplete = () => {
@@ -199,7 +209,7 @@ export default function ZoneMap() {
           {t(`zones.${zoneId}.name`)}
         </h1>
         <p style={{ color: '#64748B', margin: 0, fontSize: '0.9rem' }}>
-          {completedCount}/10 {t('common.level')}
+          {completedCount}/{levels.length} {t('common.level')}
         </p>
       </div>
 
@@ -226,8 +236,8 @@ export default function ZoneMap() {
               <LevelNode
                 index={index}
                 level={{
-                  nameKey: t(`zone1Levels.level${level.id}.name`),
-                  topicKey: t(`zone1Levels.level${level.id}.topic`),
+                  nameKey: t(`${zoneId}Levels.level${level.id}.name`),
+                  topicKey: t(`${zoneId}Levels.level${level.id}.topic`),
                 }}
                 stars={stars}
                 unlocked={unlocked}

@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+import useSettingsStore from './useSettingsStore'
 
 const useGameStore = create(
   persist(
@@ -51,6 +52,7 @@ const useGameStore = create(
 
       // Unlocked zones (zone1 always unlocked, others need previous boss defeated)
       isZoneUnlocked: (zoneId) => {
+        if (useSettingsStore.getState().devMode) return true
         const zoneOrder = ['zone1', 'zone2', 'zone3', 'zone4', 'zone5', 'zone6']
         const idx = zoneOrder.indexOf(zoneId)
         if (idx === 0) return true
@@ -60,6 +62,7 @@ const useGameStore = create(
 
       // Check if a level is unlocked (previous level must be completed, or it's level 1)
       isLevelUnlocked: (zoneId, levelId) => {
+        if (useSettingsStore.getState().devMode) return true
         if (levelId === 1) return true
         return get().zones[zoneId]?.levels[levelId - 1]?.completed || false
       },

@@ -306,6 +306,73 @@ function BeatTimeline({ task, selectedBeats, wrongBeats, solved, lang, onBeatCli
   )
 }
 
+// ─── Number Button Grid ─────────────────────────────────────
+function NumberButtonGrid({ task, selectedBeats, wrongBeats, solved, lang, onBeatClick }) {
+  const count = task.range
+  const isLcm = task.type === 'find_lcm'
+
+  return (
+    <div style={{
+      display: 'flex', flexWrap: 'wrap', gap: 8, justifyContent: 'center',
+      maxWidth: 420, margin: '0 auto',
+    }}>
+      {Array.from({ length: count }, (_, i) => {
+        const n = i + 1
+        const isSelected = selectedBeats.includes(n)
+        const isWrong = wrongBeats.includes(n)
+
+        let bg = '#F1F5F9'
+        let color = '#1E293B'
+        let border = '2px solid #E2E8F0'
+
+        if (isSelected && !isLcm) {
+          bg = '#A78BFA'
+          color = 'white'
+          border = '2px solid #A78BFA'
+        } else if (isSelected && isLcm) {
+          bg = '#FFE66D'
+          color = '#1E293B'
+          border = '2px solid #FFB800'
+        } else if (isWrong) {
+          bg = '#FEE2E2'
+          color = '#EF4444'
+          border = '2px solid #EF4444'
+        }
+
+        if (solved && !isSelected) {
+          // Show correct answers after solving
+          if (!isLcm && task.answers.includes(n)) {
+            bg = '#DDD6FE'
+            border = '2px solid #A78BFA'
+          }
+        }
+
+        const clickable = !solved && !(isSelected && !isLcm)
+
+        return (
+          <button
+            key={n}
+            onClick={clickable ? () => onBeatClick(n) : undefined}
+            style={{
+              width: 48, height: 48, borderRadius: 12,
+              background: bg, color, border,
+              fontSize: 18, fontWeight: 700,
+              cursor: clickable ? 'pointer' : 'default',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              transition: 'all 0.15s ease',
+              transform: isSelected ? 'scale(1.08)' : isWrong ? 'scale(0.95)' : 'scale(1)',
+              boxShadow: isSelected ? '0 2px 8px rgba(0,0,0,0.12)' : 'none',
+              opacity: solved && !isSelected && !(task.answers && task.answers.includes(n)) ? 0.4 : 1,
+            }}
+          >
+            {isSelected && !isLcm ? '\u2713' : n}
+          </button>
+        )
+      })}
+    </div>
+  )
+}
+
 // ─── Main Component ──────────────────────────────────────────
 export default function MultipleMachine({ levelData, onComplete }) {
   const { i18n } = useTranslation()
@@ -320,48 +387,66 @@ export default function MultipleMachine({ levelData, onComplete }) {
 
   const [selectedBeats, setSelectedBeats] = useState([])
   const [wrongBeats, setWrongBeats] = useState([])
+  const [submitted, setSubmitted] = useState(false)
 
   const task = TASKS[taskIndex]
 
-  // select_multiples: toggle a beat
+  // select_multiples: toggle a beat on/off
   const handleBeatClick = useCallback((n) => {
     if (solved) return
 
     if (task.type === 'select_multiples') {
-      const isMultiple = task.answers.includes(n)
-      if (selectedBeats.includes(n)) return // already selected correctly
-
-      if (isMultiple) {
-        const newSelected = [...selectedBeats, n]
-        setSelectedBeats(newSelected)
-        if (newSelected.length === task.answers.length) {
-          setTimeout(() => {
-            setSolved(true)
-            setShowExplanation(true)
-          }, 400)
-        }
+      if (selectedBeats.includes(n)) {
+        // Deselect
+        setSelectedBeats(prev => prev.filter(b => b !== n))
       } else {
-        setWrongBeats(prev => [...prev, n])
+        setSelectedBeats(prev => [...prev, n])
+      }
+      // Clear any wrong state on new interaction
+      setWrongBeats([])
+      setSubmitted(false)
+    } else if (task.type === 'find_lcm') {
+      // Toggle single selection for LCM
+      if (selectedBeats.includes(n)) {
+        setSelectedBeats([])
+      } else {
+        setSelectedBeats([n])
+      }
+      setWrongBeats([])
+      setSubmitted(false)
+    }
+  }, [task, selectedBeats, solved])
+
+  // Submit answer
+  const handleSubmit = useCallback(() => {
+    if (solved || selectedBeats.length === 0) return
+
+    if (task.type === 'select_multiples') {
+      // Check if selection matches answers exactly
+      const correct = task.answers.every(a => selectedBeats.includes(a))
+        && selectedBeats.every(s => task.answers.includes(s))
+
+      if (correct) {
+        setSolved(true)
+        setShowExplanation(true)
+      } else {
+        // Mark wrong selections and missing ones
+        const wrongOnes = selectedBeats.filter(s => !task.answers.includes(s))
+        setWrongBeats(wrongOnes)
         setMistakes(m => m + 1)
         setShowHint(true)
-        setTimeout(() => {
-          setWrongBeats(prev => prev.filter(b => b !== n))
-        }, 800)
+        setSubmitted(true)
       }
     } else if (task.type === 'find_lcm') {
+      const n = selectedBeats[0]
       if (n === task.answer) {
-        setSelectedBeats([n])
-        setTimeout(() => {
-          setSolved(true)
-          setShowExplanation(true)
-        }, 300)
+        setSolved(true)
+        setShowExplanation(true)
       } else {
-        setWrongBeats(prev => [...prev, n])
+        setWrongBeats([n])
         setMistakes(m => m + 1)
         setShowHint(true)
-        setTimeout(() => {
-          setWrongBeats(prev => prev.filter(b => b !== n))
-        }, 800)
+        setSubmitted(true)
       }
     }
   }, [task, selectedBeats, solved])
@@ -380,6 +465,7 @@ export default function MultipleMachine({ levelData, onComplete }) {
       setShowExplanation(false)
       setSelectedBeats([])
       setWrongBeats([])
+      setSubmitted(false)
     }
   }, [taskIndex, mistakes, onComplete])
 
@@ -395,12 +481,21 @@ export default function MultipleMachine({ levelData, onComplete }) {
       ]
     : [
         lang === 'zh'
-          ? `在时间线上找到 ${task.trackA} 和 ${task.trackB} 同时标记的最小拍子！`
-          : `Find the smallest beat where both ${task.trackA} and ${task.trackB} land!`,
+          ? `在数字中找到 ${task.trackA} 和 ${task.trackB} 的最小公倍数！`
+          : `Find the smallest number that both ${task.trackA} and ${task.trackB} divide into!`,
         lang === 'zh'
           ? '最小公倍数 = 两组跳数第一次落在同一个位置！'
-          : 'LCM = the first beat where BOTH skip-counting patterns land!',
+          : 'LCM = the first number where BOTH skip-counting patterns land!',
       ]
+
+  // Feedback message after wrong submit
+  const feedbackMsg = submitted && !solved
+    ? (task.type === 'select_multiples'
+      ? (lang === 'zh'
+        ? `还不对哦！${task.base} 的倍数一共有 ${task.answers.length} 个，再检查一下吧。`
+        : `Not quite! There are ${task.answers.length} multiples of ${task.base}. Try again!`)
+      : (lang === 'zh' ? '不对哦，再想想！' : 'Not quite, try again!'))
+    : null
 
   return (
     <div style={{
@@ -425,24 +520,44 @@ export default function MultipleMachine({ levelData, onComplete }) {
         </div>
         {task.type === 'select_multiples' && (
           <div style={{ marginTop: 8, fontSize: 14, color: '#64748B' }}>
-            &#x1F3AF; {lang === 'zh' ? '已找到' : 'Found'}: {selectedBeats.length}/{task.answers.length}
+            {lang === 'zh'
+              ? `点击选择 ${task.base} 的倍数，选好后点提交`
+              : `Tap multiples of ${task.base}, then hit Submit`}
+          </div>
+        )}
+        {task.type === 'find_lcm' && (
+          <div style={{ marginTop: 8, fontSize: 14, color: '#64748B' }}>
+            {lang === 'zh'
+              ? '选一个数字，然后点提交'
+              : 'Pick a number, then hit Submit'}
           </div>
         )}
       </div>
 
-      {/* Beat Timeline */}
-      <div className="card" style={{
-        maxWidth: 520, width: '100%', padding: '12px 8px',
-        overflow: 'auto',
-      }}>
+      {/* LCM visual hint: show the two drum tracks */}
+      {task.type === 'find_lcm' && (
+        <div className="card" style={{ maxWidth: 520, width: '100%', padding: '12px 8px' }}>
+          <BeatTimeline
+            task={task}
+            selectedBeats={solved ? selectedBeats : []}
+            wrongBeats={[]}
+            solved={solved}
+            lang={lang}
+            onBeatClick={() => {}}
+          />
+        </div>
+      )}
+
+      {/* Number button grid */}
+      <div className="card" style={{ maxWidth: 480, width: '100%', padding: '16px 12px' }}>
         {!solved && (
-          <div style={{ fontSize: 13, letterSpacing: 1, color: '#64748B', marginBottom: 6, textAlign: 'center' }}>
+          <div style={{ fontSize: 13, color: '#64748B', marginBottom: 10, textAlign: 'center' }}>
             {task.type === 'select_multiples'
-              ? (lang === 'zh' ? '\u261D\uFE0F \u70B9\u51FB\u8282\u62CD\u5708\u201C\u6572\u9F13\u201D' : '\u261D\uFE0F TAP the beat circles to "drum"')
-              : (lang === 'zh' ? '\u261D\uFE0F \u70B9\u51FB\u4F60\u8BA4\u4E3A\u540C\u6B65\u7684\u8282\u62CD' : '\u261D\uFE0F TAP the beat you think syncs')}
+              ? (lang === 'zh' ? '\u261D\uFE0F \u70B9\u51FB\u9009\u62E9\u6240\u6709\u4F60\u8BA4\u4E3A\u7684\u500D\u6570' : '\u261D\uFE0F Tap all the multiples you think are correct')
+              : (lang === 'zh' ? '\u261D\uFE0F \u70B9\u51FB\u9009\u62E9\u4F60\u7684\u7B54\u6848' : '\u261D\uFE0F Tap to select your answer')}
           </div>
         )}
-        <BeatTimeline
+        <NumberButtonGrid
           task={task}
           selectedBeats={selectedBeats}
           wrongBeats={wrongBeats}
@@ -451,6 +566,32 @@ export default function MultipleMachine({ levelData, onComplete }) {
           onBeatClick={handleBeatClick}
         />
       </div>
+
+      {/* Feedback message */}
+      {feedbackMsg && (
+        <div style={{
+          fontSize: 14, color: '#EF4444', fontWeight: 600, textAlign: 'center',
+          animation: 'bounce-in 0.3s',
+        }}>
+          {feedbackMsg}
+        </div>
+      )}
+
+      {/* Submit button */}
+      {!solved && (
+        <button
+          className="btn btn-primary"
+          onClick={handleSubmit}
+          disabled={selectedBeats.length === 0}
+          style={{
+            marginTop: 4, fontSize: 16, padding: '12px 40px',
+            opacity: selectedBeats.length === 0 ? 0.4 : 1,
+            cursor: selectedBeats.length === 0 ? 'default' : 'pointer',
+          }}
+        >
+          {lang === 'zh' ? '\u2705 \u63D0\u4EA4\u7B54\u6848' : '\u2705 Submit'}
+        </button>
+      )}
 
       {/* Explanation */}
       {showExplanation && (
@@ -465,8 +606,8 @@ export default function MultipleMachine({ levelData, onComplete }) {
           </p>
           <button className="btn btn-primary" onClick={handleNext} style={{ marginTop: 16 }}>
             {taskIndex < TASKS.length - 1
-              ? (lang === 'zh' ? '下一节拍！ →' : 'Next beat! →')
-              : (lang === 'zh' ? '演奏完毕！' : 'Concert over!')}
+              ? (lang === 'zh' ? '\u4E0B\u4E00\u9898\uFF01 \u2192' : 'Next! \u2192')
+              : (lang === 'zh' ? '\u6F14\u594F\u5B8C\u6BD5\uFF01' : 'Concert over!')}
           </button>
         </div>
       )}

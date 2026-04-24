@@ -89,6 +89,38 @@
     "level9": { "name": "Root Garden", "objective": "Build perfect squares from tiles", "topic": "Square roots" },
     "level10": { "name": "Irrational Explorer", "objective": "Zoom into the number line", "topic": "Irrational numbers" }
   },
+  "zone2Levels": {
+    "level1": { "name": "Ratio Recon", "objective": "Identify correct ratios from ingredient pairs", "topic": "What is a ratio?" },
+    "level2": { "name": "Equivalent Elixir", "objective": "Shoot all potions with equivalent ratios", "topic": "Equivalent ratios" },
+    "level3": { "name": "Simplify Serum", "objective": "Find the simplest form of each ratio", "topic": "Simplifying ratios" },
+    "level4": { "name": "Recipe Table", "objective": "Complete the recipe table patterns", "topic": "Ratio tables" },
+    "level5": { "name": "Unit Brew", "objective": "Calculate the cost per unit ingredient", "topic": "Unit rate" },
+    "level6": { "name": "Potion Race", "objective": "Compare brewing rates to find the faster recipe", "topic": "Comparing rates" },
+    "level7": { "name": "Proportion Guard", "objective": "Judge whether ingredient pairs are proportional", "topic": "Proportions" },
+    "level8": { "name": "CrossMix", "objective": "Solve proportion equations to find missing values", "topic": "Solving proportions" },
+    "level9": { "name": "Blueprint Shot", "objective": "Use scale ratios to find real measurements", "topic": "Scale drawings" },
+    "level10": { "name": "Percent Potion", "objective": "Express parts as percentages", "topic": "Percent as a ratio" },
+    "level11": { "name": "Conversion Cauldron", "objective": "Convert between fractions, decimals, and percents", "topic": "Fraction-decimal-percent" },
+    "level12": { "name": "Graph Grinder", "objective": "Find points on the proportional line", "topic": "Proportional graphs" }
+  },
+  "zone3Levels": {
+    "level1": { "name": "Balance Basics", "objective": "Rebalance the scale to reveal x", "topic": "One-step equations" },
+    "level2": { "name": "Twin Mines", "objective": "Mixed add and subtract", "topic": "One-step mixed" },
+    "level3": { "name": "Heavy Load", "objective": "Big numbers on the pans", "topic": "Two-digit equations" },
+    "level4": { "name": "Multiplier Shaft", "objective": "Divide both sides equally", "topic": "Multiplication equations" },
+    "level5": { "name": "Division Pit", "objective": "Multiply to recover the full x", "topic": "Division equations" },
+    "level6": { "name": "Two-Step Vault", "objective": "First cancel, then divide", "topic": "Two-step equations" },
+    "level7": { "name": "Negative Cave", "objective": "Solve with voids — x is negative", "topic": "Negative solutions" },
+    "level8": { "name": "Twin Weights", "objective": "Variables on both sides", "topic": "x on both sides" },
+    "level9": { "name": "Fraction Forge", "objective": "Combine subtract then multiply", "topic": "Fraction equations" },
+    "level10": { "name": "Distribution Blade", "objective": "Unwrap bundles, then solve", "topic": "Distributive property" },
+    "level11": { "name": "Inequality Edge", "objective": "Keep the scale tipped, not level", "topic": "Inequalities" },
+    "level12": { "name": "Word Warrior", "objective": "Pick the right equation from the story", "topic": "Word problems" }
+  },
+  "zone4Levels": {
+    "level1": { "name": "Pattern Jump", "objective": "Jump across planks along y = x", "topic": "Linear pattern" },
+    "level2": { "name": "Steep Climb", "objective": "Steeper rise: y = 2x", "topic": "Slope = 2" }
+  },
   "professor": {
     "greeting": "Welcome to Math Kingdom! I'm Professor Pi.",
     "zone1Intro": "The Number Fortress has fallen into chaos! Numbers are all mixed up. Let's fix this together.",

@@ -89,6 +89,38 @@
     "level9": { "name": "根号花园", "objective": "用瓷砖拼出完美正方形", "topic": "平方根" },
     "level10": { "name": "无理数探索者", "objective": "放大数轴探索", "topic": "无理数" }
   },
+  "zone2Levels": {
+    "level1": { "name": "比率侦察", "objective": "从材料组合中识别正确的比率", "topic": "什么是比率？" },
+    "level2": { "name": "等价药剂", "objective": "射击所有等价比率的药水瓶", "topic": "等价比率" },
+    "level3": { "name": "化简血清", "objective": "找到比率的最简形式", "topic": "化简比率" },
+    "level4": { "name": "配方表", "objective": "完成配方表的规律", "topic": "比率表" },
+    "level5": { "name": "单位酿造", "objective": "计算每单位材料的成本", "topic": "单位速率" },
+    "level6": { "name": "药水竞速", "objective": "比较酿造速率找出更快的配方", "topic": "比较速率" },
+    "level7": { "name": "比例守卫", "objective": "判断材料对是否成比例", "topic": "比例" },
+    "level8": { "name": "交叉混合", "objective": "解比例方程找缺失值", "topic": "解比例" },
+    "level9": { "name": "蓝图射击", "objective": "用比例尺计算实际尺寸", "topic": "比例尺" },
+    "level10": { "name": "百分比药水", "objective": "把部分表示为百分比", "topic": "百分比" },
+    "level11": { "name": "转化大锅", "objective": "在分数、小数和百分比之间转换", "topic": "分数-小数-百分比" },
+    "level12": { "name": "图形研磨机", "objective": "找到比例线上的点", "topic": "正比例图像" }
+  },
+  "zone3Levels": {
+    "level1": { "name": "平衡基础", "objective": "重建平衡揭开 x", "topic": "一步方程" },
+    "level2": { "name": "双子矿井", "objective": "加减混合", "topic": "一步混合" },
+    "level3": { "name": "满载矿车", "objective": "大数字也能平衡", "topic": "两位数方程" },
+    "level4": { "name": "乘法矿坑", "objective": "两边同除以 N", "topic": "乘法方程" },
+    "level5": { "name": "除法坑道", "objective": "两边同乘恢复完整 x", "topic": "除法方程" },
+    "level6": { "name": "两步保险库", "objective": "先消常数再分组", "topic": "两步方程" },
+    "level7": { "name": "负数洞窟", "objective": "虚空块出现 — x 是负数", "topic": "负数解" },
+    "level8": { "name": "双子秤", "objective": "两边都有 x", "topic": "两边变量" },
+    "level9": { "name": "分数锻造", "objective": "消常数后同乘", "topic": "分数方程" },
+    "level10": { "name": "分配之刃", "objective": "拆开包袱,再常规解", "topic": "分配律" },
+    "level11": { "name": "不等式边缘", "objective": "保持倾斜,不要平衡", "topic": "不等式" },
+    "level12": { "name": "文字战士", "objective": "从故事中选对方程", "topic": "应用题" }
+  },
+  "zone4Levels": {
+    "level1": { "name": "规律跳台", "objective": "沿 y = x 跳过木板到终点", "topic": "线性规律" },
+    "level2": { "name": "陡坡攀登", "objective": "更陡的斜率: y = 2x", "topic": "斜率 = 2" }
+  },
   "professor": {
     "greeting": "欢迎来到数学王国！我是π教授。",
     "zone1Intro": "数字堡垒陷入了混乱！数字全都乱套了。让我们一起修复它。",

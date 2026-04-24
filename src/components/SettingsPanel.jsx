@@ -8,6 +8,8 @@ export default function SettingsPanel({ onClose, showExit = false }) {
   const navigate = useNavigate()
   const { i18n } = useTranslation()
   const toggleLanguage = useSettingsStore((s) => s.toggleLanguage)
+  const devMode = useSettingsStore((s) => s.devMode)
+  const toggleDevMode = useSettingsStore((s) => s.toggleDevMode)
   const resetGame = useGameStore((s) => s.reset)
   const [confirmReset, setConfirmReset] = useState(false)
 
@@ -99,6 +101,36 @@ export default function SettingsPanel({ onClose, showExit = false }) {
             borderRadius: 12, fontSize: '0.85rem', fontWeight: 700,
           }}>
             {lang === 'zh' ? 'EN' : '\u4E2D'}
+          </div>
+        </div>
+
+        {/* Dev mode toggle */}
+        <div
+          onClick={toggleDevMode}
+          style={{
+            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+            padding: '14px 16px',
+            background: devMode ? 'rgba(255, 184, 0, 0.1)' : 'rgba(100, 116, 139, 0.05)',
+            borderRadius: 16, cursor: 'pointer', marginBottom: 12,
+            border: devMode ? '1px solid rgba(255, 184, 0, 0.25)' : '1px solid rgba(100, 116, 139, 0.1)',
+            transition: 'all 0.2s',
+          }}
+        >
+          <div>
+            <div style={{ fontWeight: 700, fontSize: '0.95rem', color: '#1E293B' }}>
+              {lang === 'zh' ? '\uD83D\uDD13 \u5F00\u53D1\u6A21\u5F0F' : '\uD83D\uDD13 Dev Mode'}
+            </div>
+            <div style={{ fontSize: '0.8rem', color: '#64748B', marginTop: 2 }}>
+              {lang === 'zh' ? '\u89E3\u9501\u6240\u6709\u5173\u5361' : 'Unlock all levels'}
+            </div>
+          </div>
+          <div style={{
+            background: devMode ? '#FFB800' : '#CBD5E1',
+            color: 'white', padding: '4px 12px',
+            borderRadius: 12, fontSize: '0.85rem', fontWeight: 700,
+            transition: 'background 0.2s',
+          }}>
+            {devMode ? 'ON' : 'OFF'}
           </div>
         </div>
 

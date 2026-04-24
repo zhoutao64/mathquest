@@ -2,6 +2,7 @@ import { useEffect, useState, useMemo } from 'react'
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { ZONE1_LEVELS } from '../levels/zone1'
+import { ZONE2_LEVELS } from '../levels/zone2'
 import { ProfessorPiAvatar } from '../components/characters'
 import SettingsPanel, { SettingsGearButton } from '../components/SettingsPanel'
 
@@ -79,11 +80,13 @@ export default function LevelResult() {
   const mistakes = Number(searchParams.get('mistakes')) || 0
 
   const numericLevelId = Number(levelId)
-  const levelData = ZONE1_LEVELS.find((l) => l.id === numericLevelId)
+  const ZONE_LEVELS = { zone1: ZONE1_LEVELS, zone2: ZONE2_LEVELS }
+  const zoneLevels = ZONE_LEVELS[zoneId] || ZONE1_LEVELS
+  const levelData = zoneLevels.find((l) => l.id === numericLevelId)
   const hasCard = !!levelData?.cardId
 
   const nextLevelId = numericLevelId + 1
-  const hasNextLevel = ZONE1_LEVELS.some((l) => l.id === nextLevelId)
+  const hasNextLevel = zoneLevels.some((l) => l.id === nextLevelId)
 
   const professorEmotion = stars >= 3 ? 'proud' : stars >= 2 ? 'encouraging' : 'happy'
 

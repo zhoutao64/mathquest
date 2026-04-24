@@ -661,6 +661,148 @@ export const CUTSCENES = {
       zh: "G-Glitch \u4E0D\u4F1A\u559C\u6B22\u8FD9\u4E2A\u7ED3\u679C\u7684\u2026\u2026\u6211\u5F97\u53BB\u901A\u98CE\u62A5\u4FE1\uFF01\u4F60\u4EEC\u8FD8\u4F1A\u518D\u89C1\u5230\u6211\u7684\uFF01",
     },
   ],
+
+  // ═══════════════════════════════════════════════════════════
+  // ZONE 2: RATIO LAB — Alchemy Workshop
+  // ═══════════════════════════════════════════════════════════
+
+  // ═══════════════════════════════════════════════════════════
+  // ZONE 2 INTRO — first time entering the zone map
+  // ═══════════════════════════════════════════════════════════
+  zone2_intro: [
+    {
+      speaker: 'narrator',
+      en: "The team steps through a heavy iron door into a vast alchemy workshop. Glass tubes spiral across the ceiling, bubbling cauldrons line the walls, and ingredient shelves stretch into the shadows.",
+      zh: "\u56E2\u961F\u63A8\u5F00\u4E00\u6247\u539A\u91CD\u7684\u94C1\u95E8\uFF0C\u8D70\u8FDB\u4E00\u5EA7\u5E9E\u5927\u7684\u70BC\u91D1\u5DE5\u574A\u3002\u73BB\u7483\u7BA1\u9053\u76D8\u65CB\u5728\u5934\u9876\uFF0C\u6C9B\u6C9B\u7684\u5927\u9505\u6392\u5217\u5728\u5899\u8FB9\uFF0C\u6750\u6599\u67B6\u4E00\u76F4\u5EF6\u4F38\u5230\u9634\u5F71\u6DF1\u5904\u3002",
+    },
+    {
+      speaker: 'professor', emotion: 'serious',
+      en: "This was once the finest alchemy workshop in the Math Kingdom. Ratio Rose could brew anything — healing potions, growth elixirs, even liquid starlight — as long as the ratios were right.",
+      zh: "\u8FD9\u91CC\u66FE\u662F\u6570\u5B66\u738B\u56FD\u6700\u9876\u7EA7\u7684\u70BC\u91D1\u5DE5\u574A\u3002\u6BD4\u4F8B\u7F57\u65AF\u80FD\u917F\u9020\u4EFB\u4F55\u4E1C\u897F\u2014\u2014\u6CBB\u7597\u836F\u6C34\u3001\u751F\u957F\u836F\u5242\u3001\u751A\u81F3\u6DB2\u6001\u661F\u5149\u2014\u2014\u53EA\u8981\u6BD4\u7387\u6B63\u786E\u5C31\u884C\u3002",
+    },
+    {
+      speaker: 'digit', emotion: 'surprised',
+      en: "Whoa, look at this mess! Potions are exploding everywhere, recipes are scrambled, and... is that cauldron SINGING?!",
+      zh: "\u5929\u54EA\uFF0C\u4F60\u770B\u8FD9\u4E71\u7684\uFF01\u836F\u6C34\u5230\u5904\u7206\u70B8\uFF0C\u914D\u65B9\u5168\u6253\u4E71\u4E86\uFF0C\u8FD8\u6709\u2026\u2026\u90A3\u53E3\u5927\u9505\u5728\u5531\u6B4C\uFF1F\uFF01",
+    },
+    {
+      speaker: 'narrator',
+      en: "A small chameleon scurries out from behind a toppled beaker, its scales flickering between panicked shades of orange and purple.",
+      zh: "\u4E00\u53EA\u5C0F\u53D8\u8272\u9F99\u4ECE\u4E00\u4E2A\u7FFB\u5012\u7684\u70E7\u676F\u540E\u9762\u7A9C\u51FA\u6765\uFF0C\u5B83\u7684\u9CDE\u7247\u5728\u60CA\u614C\u7684\u6A59\u8272\u548C\u7D2B\u8272\u4E4B\u95F4\u4E0D\u505C\u53D8\u6362\u3002",
+    },
+    {
+      speaker: 'bubbles', emotion: 'panicked',
+      en: "Oh thank goodness, someone's here! I'm Bubbles, Rose's assistant! Glitch sealed Rose inside a crystal bottle and scrambled every recipe in the workshop!",
+      zh: "\u592A\u597D\u4E86\uFF0C\u7EC8\u4E8E\u6709\u4EBA\u6765\u4E86\uFF01\u6211\u662F\u6CE1\u6CE1\uFF0C\u7F57\u65AF\u7684\u52A9\u624B\uFF01Glitch\u628A\u7F57\u65AF\u5C01\u5370\u5728\u4E86\u4E00\u4E2A\u6C34\u6676\u74F6\u91CC\uFF0C\u8FD8\u628A\u5DE5\u574A\u91CC\u6240\u6709\u7684\u914D\u65B9\u90FD\u6253\u4E71\u4E86\uFF01",
+    },
+    {
+      speaker: 'bug', emotion: 'smug',
+      en: "That's RIGHT! I personally scrambled every single recipe! Two parts water, three parts fire? Now it's seven parts fire and HALF a part of... uh... something! Pure chaos!",
+      zh: "\u6CA1\u9519\uFF01\u6BCF\u4E00\u4EFD\u914D\u65B9\u90FD\u662F\u6211\u4EB2\u624B\u6253\u4E71\u7684\uFF01\u4E24\u4EFD\u6C34\u4E09\u4EFD\u706B\uFF1F\u73B0\u5728\u53D8\u6210\u4E03\u4EFD\u706B\u52A0\u534A\u4EFD\u2026\u2026\u5443\u2026\u2026\u4EC0\u4E48\u4E1C\u897F\uFF01\u7EAF\u7CB9\u7684\u6DF7\u4E71\uFF01",
+    },
+    {
+      speaker: 'digit', emotion: 'sassy',
+      en: "You don't even know what you changed it TO? That's a new level of incompetent, even for you.",
+      zh: "\u4F60\u8FDE\u81EA\u5DF1\u6539\u6210\u4EC0\u4E48\u90FD\u4E0D\u77E5\u9053\uFF1F\u5373\u4F7F\u5BF9\u4F60\u6765\u8BF4\uFF0C\u8FD9\u4E5F\u662F\u65B0\u7684\u65E0\u80FD\u5C42\u7EA7\u3002",
+    },
+    {
+      speaker: 'bug', emotion: 'flustered',
+      en: "S-shut up! The POINT is nobody can fix them! Ratios are way too confusing!",
+      zh: "\u4F60\u3001\u4F60\u95ED\u5634\uFF01\u91CD\u70B9\u662F\u6CA1\u4EBA\u80FD\u4FEE\u597D\uFF01\u6BD4\u7387\u592A\u590D\u6742\u4E86\uFF01",
+    },
+    {
+      speaker: 'professor', emotion: 'encouraging',
+      en: "Ratios are the language of recipes — they tell you how ingredients relate to each other. If we master them, we can restore every formula. Let's get to work!",
+      zh: "\u6BD4\u7387\u662F\u914D\u65B9\u7684\u8BED\u8A00\u2014\u2014\u5B83\u4EEC\u544A\u8BC9\u4F60\u6750\u6599\u4E4B\u95F4\u7684\u5173\u7CFB\u3002\u53EA\u8981\u638C\u63E1\u4E86\u6BD4\u7387\uFF0C\u6211\u4EEC\u5C31\u80FD\u6062\u590D\u6BCF\u4E00\u4E2A\u914D\u65B9\u3002\u5F00\u59CB\u5427\uFF01",
+    },
+  ],
+
+  // ═══════════════════════════════════════════════════════════
+  // ZONE 2 BOSS INTRO — before the Chimera Amalgam boss
+  // ═══════════════════════════════════════════════════════════
+  zone2_boss_intro: [
+    {
+      speaker: 'narrator',
+      en: "With every recipe restored, the workshop hums with life again. But in the deepest chamber, something massive stirs behind a wall of green smoke.",
+      zh: "\u968F\u7740\u6BCF\u4E00\u4EFD\u914D\u65B9\u88AB\u6062\u590D\uFF0C\u5DE5\u574A\u518D\u6B21\u5145\u6EE1\u4E86\u751F\u673A\u3002\u4F46\u5728\u6700\u6DF1\u5904\u7684\u5BC6\u5BA4\u91CC\uFF0C\u7EFF\u8272\u70DF\u96FE\u540E\u6709\u4EC0\u4E48\u5DE8\u5927\u7684\u4E1C\u897F\u5728\u8E81\u52A8\u3002",
+    },
+    {
+      speaker: 'bubbles', emotion: 'scared',
+      en: "That's the Chimera Amalgam! Glitch fused leftover ingredients with all the wrong proportions — it created a monster!",
+      zh: "\u90A3\u662F\u5947\u7F8E\u62C9\u878D\u5408\u4F53\uFF01Glitch\u7528\u9519\u8BEF\u7684\u6BD4\u4F8B\u628A\u5269\u4F59\u6750\u6599\u878D\u5408\u5728\u4E00\u8D77\u2014\u2014\u521B\u9020\u51FA\u4E86\u4E00\u53EA\u602A\u7269\uFF01",
+    },
+    {
+      speaker: 'narrator',
+      en: "The smoke clears. A creature lurches forward — part lion, part eagle, part serpent — its body constantly shifting as unstable ratios ripple through its form.",
+      zh: "\u70DF\u96FE\u6563\u53BB\u3002\u4E00\u53EA\u751F\u7269\u8E49\u8E92\u7740\u8D70\u51FA\u6765\u2014\u2014\u534A\u72EE\u534A\u9E70\u534A\u86C7\u2014\u2014\u5B83\u7684\u8EAB\u4F53\u4E0D\u65AD\u53D8\u5316\uFF0C\u4E0D\u7A33\u5B9A\u7684\u6BD4\u7387\u5728\u5B83\u4F53\u5185\u6CE2\u52A8\u3002",
+    },
+    {
+      speaker: 'professor', emotion: 'serious',
+      en: "This beast is held together by broken proportions. We'll need everything we've learned — ratios, rates, percents, proportional reasoning — ALL of it to undo Glitch's formula!",
+      zh: "\u8FD9\u53EA\u91CE\u517D\u662F\u7531\u9519\u8BEF\u7684\u6BD4\u4F8B\u7EF4\u7CFB\u7684\u3002\u6211\u4EEC\u9700\u8981\u7528\u4E0A\u6240\u6709\u5B66\u8FC7\u7684\u77E5\u8BC6\u2014\u2014\u6BD4\u7387\u3001\u901F\u7387\u3001\u767E\u5206\u6BD4\u3001\u6BD4\u4F8B\u63A8\u7406\u2014\u2014\u5168\u90E8\uFF01\u624D\u80FD\u7834\u89E3Glitch\u7684\u516C\u5F0F\uFF01",
+    },
+    {
+      speaker: 'digit', emotion: 'determined',
+      en: "We've fixed twelve labs' worth of recipes. One overgrown chemistry experiment doesn't scare me. This time, we're ready!",
+      zh: "\u6211\u4EEC\u5DF2\u7ECF\u4FEE\u590D\u4E86\u5341\u4E8C\u4E2A\u5B9E\u9A8C\u5BA4\u7684\u914D\u65B9\u3002\u4E00\u4E2A\u5931\u63A7\u7684\u5316\u5B66\u5B9E\u9A8C\u53EF\u5413\u4E0D\u5012\u6211\u3002\u8FD9\u6B21\uFF0C\u6211\u4EEC\u51C6\u5907\u597D\u4E86\uFF01",
+    },
+  ],
+
+  // ═══════════════════════════════════════════════════════════
+  // ZONE 2 BOSS OUTRO — after defeating the Chimera Amalgam
+  // ═══════════════════════════════════════════════════════════
+  zone2_boss_outro: [
+    {
+      speaker: 'narrator',
+      en: "With the final proportion balanced, the Chimera shudders. Its mismatched parts dissolve into harmless sparks of light, drifting upward like embers.",
+      zh: "\u968F\u7740\u6700\u540E\u4E00\u4E2A\u6BD4\u4F8B\u88AB\u5E73\u8861\uFF0C\u5947\u7F8E\u62C9\u5267\u70C8\u98A4\u6296\u3002\u5B83\u90A3\u4E0D\u5339\u914D\u7684\u8EAB\u4F53\u5316\u4E3A\u65E0\u5BB3\u7684\u5149\u70B9\uFF0C\u50CF\u4F59\u70EC\u4E00\u6837\u7F13\u7F13\u5347\u8D77\u3002",
+    },
+    {
+      speaker: 'narrator',
+      en: "Behind where the Chimera stood, a crystal bottle glows. The glass cracks, then shatters — and Ratio Rose steps free, brushing potion residue from her sleeves.",
+      zh: "\u5728\u5947\u7F8E\u62C9\u7AD9\u7ACB\u7684\u5730\u65B9\u540E\u9762\uFF0C\u4E00\u4E2A\u6C34\u6676\u74F6\u95EA\u95EA\u53D1\u5149\u3002\u74F6\u8EAB\u88C2\u5F00\uFF0C\u7136\u540E\u7834\u788E\u2014\u2014\u6BD4\u4F8B\u7F57\u65AF\u8D70\u4E86\u51FA\u6765\uFF0C\u62A2\u6389\u8896\u5B50\u4E0A\u7684\u836F\u6C34\u6B8B\u6E23\u3002",
+    },
+    {
+      speaker: 'rose', emotion: 'grateful',
+      en: "Three parts gratitude, one part relief, and a dash of admiration — that's my recipe for what I'm feeling right now. Thank you, heroes!",
+      zh: "\u4E09\u4EFD\u611F\u6FC0\u3001\u4E00\u4EFD\u5B89\u5FC3\u3001\u518D\u52A0\u4E00\u70B9\u70B9\u656C\u4F69\u2014\u2014\u8FD9\u5C31\u662F\u6211\u73B0\u5728\u5FC3\u60C5\u7684\u914D\u65B9\u3002\u8C22\u8C22\u4F60\u4EEC\uFF0C\u82F1\u96C4\uFF01",
+    },
+    {
+      speaker: 'digit', emotion: 'amused',
+      en: "Even her thank-you is a recipe. I respect that commitment.",
+      zh: "\u8FDE\u611F\u8C22\u90FD\u662F\u914D\u65B9\u5F0F\u7684\u3002\u6211\u5C0A\u91CD\u8FD9\u79CD\u6267\u7740\u3002",
+    },
+    {
+      speaker: 'narrator',
+      en: "A warm golden light erupts from the workshop's central cauldron. The second Crystal Shard rises from the liquid, pulsing with energy.",
+      zh: "\u4E00\u9053\u6E29\u6696\u7684\u91D1\u5149\u4ECE\u5DE5\u574A\u4E2D\u592E\u7684\u5927\u9505\u4E2D\u8FC8\u53D1\u800C\u51FA\u3002\u7B2C\u4E8C\u5757\u6C34\u6676\u788E\u7247\u4ECE\u6DB2\u4F53\u4E2D\u5347\u8D77\uFF0C\u95EA\u70C1\u7740\u80FD\u91CF\u3002",
+    },
+    {
+      speaker: 'rose', emotion: 'happy',
+      en: "The second Crystal Shard — a perfect 1:1 ratio of hope and determination. Take it. The workshop is safe again.",
+      zh: "\u7B2C\u4E8C\u5757\u6C34\u6676\u788E\u7247\u2014\u2014\u5E0C\u671B\u548C\u51B3\u5FC3\u7684\u5B8C\u7F8E1:1\u6BD4\u4F8B\u3002\u62FF\u53BB\u5427\u3002\u5DE5\u574A\u53C8\u5B89\u5168\u4E86\u3002",
+    },
+    {
+      speaker: 'bug', emotion: 'panicked',
+      en: "TWO shards?! Glitch is NOT going to like this! I'm outta here — but you're heading into WAY worse places, trust me!",
+      zh: "\u4E24\u5757\u788E\u7247\u4E86\uFF1F\uFF01Glitch\u7EDD\u5BF9\u4E0D\u4F1A\u5584\u7F62\u7518\u4F11\u7684\uFF01\u6211\u5148\u6EA2\u4E86\u2014\u2014\u4F46\u4F60\u4EEC\u63A5\u4E0B\u6765\u8981\u53BB\u7684\u5730\u65B9\u53EF\u6BD4\u8FD9\u53EF\u6015\u591A\u4E86\uFF0C\u4FE1\u6211\uFF01",
+    },
+    {
+      speaker: 'digit', emotion: 'sassy',
+      en: "\"Trust me,\" says the villain. Where have I heard THAT before?",
+      zh: "\u201C\u4FE1\u6211\u201D\uFF0C\u53CD\u6D3E\u8BF4\u3002\u8FD9\u8BDD\u6211\u4E4B\u524D\u5728\u54EA\u542C\u8FC7\u6765\u7740\uFF1F",
+    },
+    {
+      speaker: 'professor', emotion: 'proud',
+      en: "Two Crystal Shards recovered, two guardians freed! But four more shards remain scattered across the kingdom. The journey is far from over.",
+      zh: "\u4E24\u5757\u6C34\u6676\u788E\u7247\u5DF2\u56DE\u6536\uFF0C\u4E24\u4F4D\u5B88\u62A4\u8005\u5DF2\u83B7\u6551\uFF01\u4F46\u8FD8\u6709\u56DB\u5757\u788E\u7247\u6563\u843D\u5728\u738B\u56FD\u5404\u5904\u3002\u65C5\u7A0B\u8FD8\u8FDC\u6CA1\u6709\u7ED3\u675F\u3002",
+    },
+    {
+      speaker: 'rose', emotion: 'encouraging',
+      en: "Two parts courage, one part wisdom — that's the ratio you'll need for what comes next. I'll be cheering from the workshop!",
+      zh: "\u4E24\u4EFD\u52C7\u6C14\u3001\u4E00\u4EFD\u667A\u6167\u2014\u2014\u8FD9\u5C31\u662F\u63A5\u4E0B\u6765\u4F60\u4EEC\u9700\u8981\u7684\u6BD4\u7387\u3002\u6211\u4F1A\u5728\u5DE5\u574A\u91CC\u4E3A\u4F60\u4EEC\u52A0\u6CB9\u7684\uFF01",
+    },
+  ],
 }
 
 // Helper: get cutscene by ID
