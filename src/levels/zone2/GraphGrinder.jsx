@@ -180,13 +180,13 @@ function CoordinateGrid({ task }) {
       {/* X axis */}
       <line x1={ORIGIN_X} y1={ORIGIN_Y} x2={ORIGIN_X + maxX * SCALE_X + 10} y2={ORIGIN_Y}
         stroke="#94A3B8" strokeWidth={1.5} />
-      <text x={ORIGIN_X + maxX * SCALE_X + 14} y={ORIGIN_Y + 4}
-        fill="#94A3B8" fontSize={10} fontWeight={700} fontFamily="Nunito, sans-serif">x</text>
+      <text x={ORIGIN_X + maxX * SCALE_X + 14} y={ORIGIN_Y + 5}
+        fill="#E2E8F0" fontSize={14} fontWeight={800} fontFamily="Nunito, sans-serif">x</text>
       {/* Y axis */}
       <line x1={ORIGIN_X} y1={ORIGIN_Y} x2={ORIGIN_X} y2={ORIGIN_Y - maxY * SCALE_Y - 10}
         stroke="#94A3B8" strokeWidth={1.5} />
       <text x={ORIGIN_X - 4} y={ORIGIN_Y - maxY * SCALE_Y - 14}
-        fill="#94A3B8" fontSize={10} fontWeight={700} fontFamily="Nunito, sans-serif"
+        fill="#E2E8F0" fontSize={14} fontWeight={800} fontFamily="Nunito, sans-serif"
         textAnchor="middle">y</text>
       {/* Origin label */}
       <text x={ORIGIN_X - 10} y={ORIGIN_Y + 12}
