@@ -1,0 +1,1 @@
+import{t as e}from"./jsx-runtime-G8ENwUBk.js";import t from"./Parkour-BhEKcNav.js";var n=e(),r={planks:[{gx:1,gy:2,gw:.8},{gx:2,gy:4,gw:.8},{gx:3,gy:6,gw:1.2,isGoal:!0}],equation:`y = 2x`,titleEn:`STEEP CLIMB`,titleZh:`陡坡攀登`};function i({onComplete:e}){return(0,n.jsx)(t,{onComplete:e,levelData:r})}export{i as default};
